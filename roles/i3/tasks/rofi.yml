@@ -4,7 +4,7 @@
   tags:
     - rofi
 
-- name: Install i3-wm for rofi window switching
-  pacman: name=i3-wm state=present
+- name: Install i3-gaps for rofi window switching
+  pacman: name=i3-gaps state=present
   tags:
     - rofi

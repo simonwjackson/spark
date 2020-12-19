@@ -1,0 +1,8 @@
+---
+- name: Remove apps
+  pacman:
+    name: 
+      - conky
+      - conky-i3
+    state: absent
+    force: yes

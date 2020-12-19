@@ -1,17 +1,17 @@
 user:
-    name: pigmonkey
+    name: simonwjackson
     uid: 1000
-    group: pigmonkey
+    group: simonwjackson
     shell: /usr/bin/zsh
-    email:  peter@havenaut.net
+    email: hello@simonwjackson.io
     log:
         dir: log
         rotate: 8
 
-hostname: nous
+hostname: logan
 
 dotfiles:
-    url: git@github.com:pigmonkey/dotfiles.git
+    url: git@github.com:simonwjackson/dotfiles.git
     destination: projects/dotfiles
     rcup_flags: -fx README.md
 
@@ -29,7 +29,7 @@ aur:
 ssh:
     port: 22
     user_key: /root/id_rsa
-    enable_sshd: False
+    enable_sshd: True
 
 gnupg:
     enable_agent: True
@@ -57,7 +57,7 @@ network:
         - faeec88c-79ec-4840-ab25-ea356af8a81b
 
 editors:
-    - gvim
+    - nvim
 
 video_drivers:
     - libva-intel-driver
