@@ -2,7 +2,7 @@
 - hosts: localhost
   become: yes
   roles:
-    - { role: base, tags: ['base'] }
+    #- { role: base, tags: ['base'] }
     - { role: blacklist, tags: ['blacklist'] }
     # - { role: gnupg, tags: ['gnupg'] }
     # - { role: sysmon, tags: ['sysmon'] }
@@ -29,21 +29,21 @@
     # - { role: firejail, tags: ['firejail'] }
     # - { role: tor, tags: ['tor'], when: "tor is defined" }
     # - { role: unbound, tags: ['unbound'] }
-    # - { role: editors, tags: ['editors'] }
+    - { role: editors, tags: ['editors'] }
     # - { role: filesystems, tags: ['filesystems'] }
     # - { role: archive, tags: ['archive'] }
     # - { role: optical, tags: ['optical'] }
     # - { role: udisks, tags: ['udisks'] }
     # - { role: spell, tags: ['spell'] }
-    # - { role: browsers, tags: ['browsers'] }
+    - { role: browsers, tags: ['browsers'] }
     # - { role: yubikey, tags: ['yubikey'] }
     # - { role: media, tags: ['media'] }
     # - { role: mpd, tags: ['mpd'] }
-    # - { role: mpv, tags: ['mpv'] }
+    - { role: mpv, tags: ['mpv'] }
     # - { role: pianobar, tags: ['pianobar'] }
     # - { role: laptop, tags: ['laptop'] }
-    # - { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
-    # - { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
+    - { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
+    - { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
     # - { role: screensaver, tags: ['screensaver'] }
     # - { role: bitlbee, tags: ['bitlbee'] }
     # - { role: weechat, tags: ['weechat'] }
@@ -56,7 +56,7 @@
     # - { role: visidata, tags: ['visidata'] }
     # - { role: pdf, tags: ['pdf'] }
     # - { role: dictd, tags: ['dictd'] }
-    # - { role: redshift, tags: ['redshift'] }
+    - { role: redshift, tags: ['redshift'] }
     # - { role: rtorrent, tags: ['rtorrent'] }
     # - { role: virtualbox, tags: ['virtualbox'] }
     # - { role: hashicorp, tags: ['hashicorp'] }
@@ -89,7 +89,7 @@
     # - { role: aria2, tags: ['aria2'] }
     # - { role: signal, tags: ['signal'] }
     # - { role: android, tags: ['android'] }
-    # - { role: ripgrep, tags: ['ripgrep'] }
+    - { role: ripgrep, tags: ['ripgrep'] }
     # - { role: zeal, tags: ['zeal'] }
   vars_prompt:
     - name: user_password
