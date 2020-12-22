@@ -1,19 +1,25 @@
 ---
 - hosts: localhost
   become: yes
+  tasks:
+    - name: Print all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      tags:
+        - debug
   roles:
     #- { role: base, tags: ['base'] }
     - { role: blacklist, tags: ['blacklist'] }
     # - { role: gnupg, tags: ['gnupg'] }
     # - { role: sysmon, tags: ['sysmon'] }
-    # - { role: cron, tags: ['cron'] }
+    - { role: cron, tags: ['cron'] }
     # - { role: microcode, tags: ['microcode'], when: "'GenuineIntel' in ansible_processor" }
     # - { role: hardened, tags: ['hardened'] }
     # - { role: ssh, tags: ['ssh'] }
     # - { role: dotfiles, tags: ['dotfiles'] }
     # - { role: ssd, tags: ['ssd'] }
     # - { role: fonts, tags: ['fonts'] }
-    # - { role: x, tags: ['x'] }
+    - { role: x, tags: ['x'] }
     # - { role: lightdm, tags: ['lightdm'], when: "display_manager == 'lightdm'" }
     # - { role: gdm, tags: ['gdm'], when: "display_manager == 'gdm'" }
     - { role: i3, tags: ['i3'], when: "desktop_environment == 'i3'" }
@@ -29,7 +35,7 @@
     # - { role: firejail, tags: ['firejail'] }
     # - { role: tor, tags: ['tor'], when: "tor is defined" }
     # - { role: unbound, tags: ['unbound'] }
-    - { role: editors, tags: ['editors'] }
+    #- { role: editors, tags: ['editors'] }
     # - { role: filesystems, tags: ['filesystems'] }
     # - { role: archive, tags: ['archive'] }
     # - { role: optical, tags: ['optical'] }
@@ -42,8 +48,8 @@
     - { role: mpv, tags: ['mpv'] }
     # - { role: pianobar, tags: ['pianobar'] }
     # - { role: laptop, tags: ['laptop'] }
-    - { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
-    - { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
+    #- { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
+    #- { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
     # - { role: screensaver, tags: ['screensaver'] }
     # - { role: bitlbee, tags: ['bitlbee'] }
     # - { role: weechat, tags: ['weechat'] }

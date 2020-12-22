@@ -1,0 +1,38 @@
+#!/bin/bash
+# {{ ansible_managed }}
+
+# TODO: Automate this
+# gtf 1768 2208 120
+
+xrandr --newmode "1768x2208_120.00"  706.09  1768 1928 2128 2488  2208 2209 2212 2365  -HSync +Vsync
+xrandr --addmode VIRTUAL1 1768x2208_120.00
+xrandr \
+  --output DP1 \
+    --off \
+  --output DP1-1 \
+    --off \
+  --output DP1-1-1 \
+    --off \
+  --output DP1-1-8 \
+    --mode 1920x1080 \
+    --pos 3688x564 \
+    --rotate normal \
+  --output DP1-8 \
+    --primary \
+    --mode 1920x1080 \
+    --pos 0x564 \
+    --rotate normal \
+  --output DP2 \
+    --off \
+  --output HDMI1 \
+    --off \
+  --output HDMI2 \
+    --off \
+  --output HDMI3 \
+    --off \
+    --output VIRTUAL1 \
+    --mode 1768x2208_120.00 \
+    --pos 1920x0 \
+    --rotate normal \
+  --output VIRTUAL2 \
+    --off 

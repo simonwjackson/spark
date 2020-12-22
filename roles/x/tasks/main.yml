@@ -33,17 +33,54 @@
   tags:
     - user
 
-- name: Enable middle-click scrolling
-  template: src=30-scroll.conf dest=/etc/X11/xorg.conf.d/30-scroll.conf
-  when: libinput.middle_click_scroll is defined
+- name: Install Flock
+  aur:
+    name: haskell-filelock
+    user: "{{ user.name }}"
   tags:
-    - libinput
+    - flock
 
-- name: Remap mouse buttons
-  template: src=30-button_mapping.conf dest=/etc/X11/xorg.conf.d/30-button_mapping.conf
-  when: libinput.button_mapping is defined
+- name: Install Flock
+  aur:
+    name: x11vnc-git
+    user: "{{ user.name }}"
   tags:
-    - libinput
+    - x11vnc
+    - video
+
+- name: Push virtual desktop setup
+  template:
+    src: set-xrandr-virtual.sh.j2
+    dest: /usr/local/bin/set-xrandr-virtual
+    mode: 0755
+  tags:
+    - xrandr
+    - video
+
+- name: Push x11vnc script for virtual screen
+  template:
+    src: host-virtual-screen.sh.j2
+    dest: /usr/local/bin/host-virtual-screen
+    mode: 0755
+  tags:
+    - xrandr
+    - video
+
+- name: Prevent screen tearing
+  template:
+    src: 20-intel.conf.j2
+    dest: /etc/X11/xorg.conf.d/20-intel.conf
+  when: "'xf86-video-intel' in video_drivers"
+  tags:
+    - video
+
+- name: Install Fzf floating window script
+  template:
+    src: float.sh.j2
+    dest: /usr/local/bin/float
+    mode: 0755
+  tags:
+    - fzf
 
 - include: sxhkd.yml
 - include: unclutter.yml

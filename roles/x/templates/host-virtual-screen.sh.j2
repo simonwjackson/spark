@@ -1,0 +1,5 @@
+#!/bin/bash
+# {{ ansible_managed }}
+
+flock -n /tmp/virtual-screen.lock \
+  x11vnc -clip 1768x2208+3840+0 -ncache 8 -ncache_cr

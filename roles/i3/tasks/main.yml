@@ -12,9 +12,26 @@
   file: path=/etc/xdg/mimeapps.list state=touch
 
 - name: Verify header in default applications file
-  lineinfile: dest=/etc/xdg/mimeapps.list
-              state=present
-              line='[Default Applications]'
-              insertbefore=BOF
+  lineinfile:
+    dest: /etc/xdg/mimeapps.list
+    state: present
+    line: '[Default Applications]'
+    insertbefore: BOF
+
+- name: Create i3 directory
+  file:
+    path: /home/{{ user.name }}/.config/i3
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - i3
+
+- name: Push i3 config
+  template: 
+    src: config.j2
+    dest: /home/{{ user.name }}/.config/i3/config
+  tags:
+    - i3
 
 - include: rofi.yml

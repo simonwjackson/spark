@@ -59,37 +59,37 @@ network:
 editors:
     - nvim
 
-video_drivers:
-    - libva-intel-driver
+video_drivers: 
+  - xf86-video-intel 
 
 base_packages:
+    - arch-wiki-docs
+    - arch-wiki-lite
     - base-devel
+    - bc
+    - coreutils
+    - cpulimit
+    - dateutils
+    - dmidecode
+    - fwupd
+    - fzf
+    - git
+    - jq
     - man-db
     - man-pages
-    - pacman-contrib
-    - fwupd
-    - dmidecode
-    - tmux
-    - git
-    - rsync
-    - coreutils
+    - minicom
     - moreutils
-    - dateutils
-    - bc
-    - ranger
-    - arch-wiki-lite
-    - arch-wiki-docs
+    - pacman-contrib
+    - pv
     - python-keyring
     - python-secretstorage
-    - tig
+    - ranger
+    - rsync
     - ruby
-    - pv
-    - minicom
-    - jq
     - screen
     - termdown
-    - fzf
-    - cpulimit
+    - tig
+    - tmux
 
 filesystem_packages:
     - dosfstools

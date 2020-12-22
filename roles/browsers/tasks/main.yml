@@ -11,6 +11,11 @@
   tags:
     - firefox
 
+#
+# TODO: DIY firefox extension installer
+# https://askubuntu.com/a/671869
+#
+
 - name: Install Chromium
   pacman:
     name: chromium
