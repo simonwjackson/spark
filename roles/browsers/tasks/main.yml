@@ -11,6 +11,23 @@
   tags:
     - firefox
 
+- name: Install brotabs
+  pip:
+    name: brotab
+    state: latest
+    extra_args: --user
+  tags:
+    - brotabs
+
+- name: Push all-tabs script
+  copy:
+    src: all-tabs.sh
+    dest: /usr/local/bin/all-tabs
+    mode: 0755
+  tags:
+    - fzf
+    - alltabs
+
 #
 # TODO: DIY firefox extension installer
 # https://askubuntu.com/a/671869

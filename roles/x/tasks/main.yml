@@ -74,7 +74,7 @@
   tags:
     - video
 
-- name: Install Fzf floating window script
+- name: Install floating window script
   template:
     src: float.sh.j2
     dest: /usr/local/bin/float
