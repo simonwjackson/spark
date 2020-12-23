@@ -10,6 +10,7 @@
   roles:
     #- { role: base, tags: ['base'] }
     - { role: blacklist, tags: ['blacklist'] }
+    - { role: env, tags: ['env'] }
     # - { role: gnupg, tags: ['gnupg'] }
     # - { role: sysmon, tags: ['sysmon'] }
     - { role: cron, tags: ['cron'] }
