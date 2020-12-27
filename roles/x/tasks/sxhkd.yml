@@ -1,5 +1,25 @@
 ---
 - name: Install sxhkd
-  pacman: name=sxhkd state=present
+  pacman:
+    name: sxhkd
+    state: present
   tags:
     - sxhkd
+
+- name: Create sxhkd config dir
+  file:
+    path: /home/{{ user.name }}/.config/sxhkd
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - sxhkd
+    - sxhkdrc
+
+- name: Push sxhkdrc
+  template:
+    src: sxhkdrc.j2
+    dest: /home/{{ user.name }}/.config/sxhkd/sxhkdrc
+  tags:
+    - sxhkd
+    - sxhkdrc

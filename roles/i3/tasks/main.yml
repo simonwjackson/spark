@@ -44,11 +44,24 @@
     group: "{{ user.group }}"
   tags:
     - i3
+    - i3rc
 
 - name: Push i3 config
   template: 
     src: config.j2
     dest: /home/{{ user.name }}/.config/i3/config
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - i3
+    - i3rc
+
+
+- name: Push i3-tmux-term
+  template: 
+    src: i3-tmux-term.sh.j2
+    dest: /usr/local/bin/i3-tmux-term
+    mode: 0755
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:

@@ -82,6 +82,12 @@
   tags:
     - fzf
 
+- name: Push kill or close
+  copy:
+    src: kill-or-close.sh
+    dest: /usr/local/bin/kill-or-close
+    mode: 0755
+ 
 - include: sxhkd.yml
 - include: unclutter.yml
 - include: autorandr.yml

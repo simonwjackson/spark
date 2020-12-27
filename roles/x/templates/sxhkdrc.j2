@@ -1,0 +1,114 @@
+# new term
+super + Return
+  i3-sensible-terminal
+
+lock + Return
+  i3-sensible-terminal
+
+# kill focused window
+super + ctrl + q
+  kill-or-close
+
+# start window switcher
+super + t
+  float window-switch
+
+# Lock screen
+super + shift + l
+  blurlock
+
+# exit i3 (logs you out of your X session)
+super + shift + e
+  i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'
+
+#####################
+# Movement
+#####################
+
+# change focus
+super + {h,j,k,l} 
+  i3-msg focus {left,down,up,right}
+
+# move focused window
+super + shift + {h,j,k,l} 
+  i3-msg move {left,down,up,right} 
+
+# switch to workspace
+super + {1,2,3,4,5,6,7,8,9} 
+  i3-msg workspace {1,2,3,4,5,6,7,8,9}
+
+# Move focused container to workspace
+super + ctrl + {1,2,3,4,5,6,7,8,9} 
+  i3-msg move container to workspace {1,2,3,4,5,6,7,8,9} 
+
+# Move to workspace with focused container
+super + shift + {1,2,3,4,5,6,7,8,9} 
+  i3-msg move container to workspace {1,2,3,4,5,6,7,8,9};
+  i3-msg workspace {1,2,3,4,5,6,7,8,9}
+
+#navigate workspaces next / previous
+super + ctrl + {Left,Right}
+  i3-msg workspace {next,prev}
+
+# workspace back and forth (with/without active container)
+super + shift + b
+  i3-msg move container to workspace back_and_forth
+  i3-msg workspace back_and_forth
+
+# toggle tiling / floating
+super + shift + space
+  i3-msg floating toggle
+
+# change focus between tiling / floating windows
+super + space
+  i3-msg focus mode_toggle 
+
+
+#####################
+# Resize
+##################### 
+
+# Resize windows
+super + {Left,Down,Up,Right}
+   i3-msg resize {shrink width,shrink height,grow height,grow width} 5 px or 5 ppt
+
+#super + {Left,Right}
+#   i3-msg resize {shrink,grow} width 5 px or 5 ppt
+
+#super + {Down,Up}
+#   i3-msg resize {shrink,grow} height 5 px or 5 ppt
+
+
+#####################
+# Splits
+#####################
+
+# split orientation
+super + q
+  i3-msg split toggle 
+
+
+#####################
+# Layout
+#####################
+
+# toggle fullscreen mode for the focused container
+super + m
+  i3-msg fullscreen toggle
+
+# change container layout
+super + {w,e}
+  i3-msg layout {tabbed,toggle split}
+
+
+#####################
+# Applications
+#####################
+
+# start firefox
+super + b
+  firefox
+
+# File explorer
+super + f
+  float lf

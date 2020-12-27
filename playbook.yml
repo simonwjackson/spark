@@ -1,12 +1,6 @@
 ---
 - hosts: localhost
   become: yes
-  tasks:
-    - name: Print all available facts
-      ansible.builtin.debug:
-        var: ansible_facts
-      tags:
-        - debug
   roles:
     #- { role: base, tags: ['base'] }
     - { role: blacklist, tags: ['blacklist'] }
@@ -73,7 +67,7 @@
     # - { role: borg, tags: ['borg'] }
     # - { role: tarsnap, tags: ['tarsnap'] }
     # - { role: mapping, tags: ['mapping'] }
-    # - { role: sound, tags: ['sound'] }
+    - { role: sound, tags: ['sound'] }
     # - { role: pim, tags: ['pim'] }
     # - { role: radio, tags: ['radio'] }
     # - { role: postgresql, tags: ['postgresql'] }

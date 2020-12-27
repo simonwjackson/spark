@@ -4,8 +4,24 @@
     name: mpv
     state: present
 
-- name: Push play script
+- name: Install jq 
+  pacman:
+    name: socat
+    state: present
+
+- name: Install socat
+  pacman:
+    name: socat
+    state: present
+
+- name: Push audio play script
   copy:
-    src: play.sh
-    dest: /usr/local/bin/play
+    src: mpv-audio.sh
+    dest: /usr/local/bin/mpv-audio
+    mode: 0755
+
+- name: Push video play script
+  copy:
+      src: mpv-video.sh
+    dest: /usr/local/bin/mpv-video
     mode: 0755
