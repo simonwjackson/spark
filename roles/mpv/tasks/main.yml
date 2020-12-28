@@ -14,6 +14,27 @@
     name: socat
     state: present
 
+- name: Install pianobar
+  aur:
+    name: pianobar-git
+    user: "{{ user.name }}"
+  tags:
+    - pianobar
+
+- name: Install expect
+  pacman:
+    name: expect
+    state: present
+  tags:
+    - expect
+
+- name: Install youtube search
+  pip:
+    name: youtube-search
+    state: latest
+  tags:
+    - youtube
+
 - name: Push audio play script
   copy:
     src: mpv-audio.sh
@@ -22,6 +43,30 @@
 
 - name: Push video play script
   copy:
-      src: mpv-video.sh
+    src: mpv-video.sh
     dest: /usr/local/bin/mpv-video
+    mode: 0755
+
+- name: Push album finder script
+  copy:
+    src: find-full-album-youtube.py
+    dest: /usr/local/bin/find-full-album-youtube
+    mode: 0755
+
+- name: Push music menu script
+  copy:
+    src: music-menu.sh
+    dest: /usr/local/bin/music-menu
+    mode: 0755
+
+- name: Push pianobar play script
+  copy:
+    src: pianobar-play-station.sh
+    dest: /usr/local/bin/pianobar-play-station
+    mode: 0755
+
+- name: Push pianobar list script
+  copy:
+    src: pianobar-list-stations.sh
+    dest: /usr/local/bin/pianobar-list-stations
     mode: 0755
