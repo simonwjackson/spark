@@ -1,0 +1,4 @@
+! -*- coding: utf-8 -*-
+
+! Swap semi-colon and colon
+keycode 47 = colon semicolon

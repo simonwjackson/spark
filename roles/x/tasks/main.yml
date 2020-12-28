@@ -40,7 +40,7 @@
   tags:
     - flock
 
-- name: Install Flock
+- name: Install x11vnc
   aur:
     name: x11vnc-git
     user: "{{ user.name }}"
@@ -71,22 +71,48 @@
     src: 20-intel.conf.j2
     dest: /etc/X11/xorg.conf.d/20-intel.conf
   when: "'xf86-video-intel' in video_drivers"
-  tags:
-    - video
 
 - name: Install floating window script
-  template:
-    src: float.sh.j2
+  copy:
+    src: float.sh
     dest: /usr/local/bin/float
     mode: 0755
-  tags:
-    - fzf
 
 - name: Push kill or close
   copy:
     src: kill-or-close.sh
     dest: /usr/local/bin/kill-or-close
     mode: 0755
+
+- name: Push xinitrc
+  copy:
+    src: xinitrc
+    dest: /home/{{ user.name }}/.xinitrc
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - x
+    - xinit
+
+- name: Push Xresources config
+  copy:
+    src: Xresources
+    dest: /home/{{ user.name }}/.Xresources
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - x
+    - xresources
+
+- name: Push xmodmap config
+  copy:
+    src: Xmodmap
+    dest: /home/{{ user.name }}/.Xmodmap
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - x
+    - xmodmap
  
 - include: sxhkd.yml
 - include: unclutter.yml

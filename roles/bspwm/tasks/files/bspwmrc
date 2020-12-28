@@ -1,0 +1,32 @@
+#! /bin/sh
+
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload example &
+  done
+fi
+
+bspc monitor DP1-8 -d 4 1 7
+#bspc monitor VIRTUAL1 -d 5
+bspc monitor HDMI2 -d 3 6 9
+
+bspc config border_width         1
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focus_follows_pointer true
+
+bspc rule -a '*:floating term' state=floating follow=on focus=on
+bspc rule -a Gimp desktop='^9' state=floating follow=on
+bspc rule -a mpv state=floating
+
+
+# Autostart applications
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+clipit &
+blueman-applet &
+xautolock -time 10 -locker blurlock &
+ff-theme-util &
+fix_xcursor &

@@ -1,0 +1,89 @@
+# new term
+super + Return
+  $TERMINAL
+
+# kill focused window
+super + alt + q
+  bspc node -{c,k}
+
+# start window switcher
+super + t
+  float window-switch
+
+# Lock screen
+super + alt + ctrl + l
+  blurlock
+
+# Music menu
+super + ctrl + m
+  float music-menu
+
+# Pianobar
+super + p
+  float pianobar-list-stations
+
+# exit i3 (logs you out of your X session)
+super + shift + e
+  i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'
+
+
+#####################
+# Movement
+#####################
+
+# swap the current node and the biggest window
+super + g
+  bspc node -s biggest.window
+
+# toggle floating
+super + space
+  bspc node -t ~floating
+
+# set the node flags
+super + alt + {m,x,y,z}
+  bspc node -g {marked,locked,sticky,private}
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+  bspc node -{f,s} {west,south,north,east}
+
+# focus the older or newer node in the focus history
+super + {o,i}
+  bspc wm -h off; \
+  bspc node {older,newer} -f; \
+  bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,alt + }{1-9}
+  bspc {desktop -f,node -d} '^{1-9}'
+
+	
+#####################
+# Resize
+##################### 
+
+# expand a window by moving one of its side outward
+super + {Left,Down,Up,Right}
+  bspc node -z {right -20 0,bottom 0 20,bottom 0 -20,right 20 0}
+
+
+#####################
+# Layout
+#####################
+
+# toggle fullscreen mode for the focused container
+super + m
+  bspc desktop -l next
+
+
+#####################
+# Applications
+#####################
+
+# start firefox
+super + b
+  firefox
+
+# File explorer
+super + f
+  float lf

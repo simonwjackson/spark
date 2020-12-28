@@ -3,7 +3,8 @@
 WINDOWS=$(
     wmctrl -l \
     | grep -v " Mozilla Firefox" \
-    | awk -F '  -?[0-9] [a-zA-Z0-9]+ ' '{print "WIN\t" $1 "\t" $2}'
+    | awk -F '  -?[0-9] [a-zA-Z0-9]+ ' '{print "WIN\t" $1 "\t" $2}' \
+    | grep -v "\s1$"
 )
 
 TABS=$(

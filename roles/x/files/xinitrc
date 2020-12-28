@@ -11,11 +11,8 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 DEFAULT_SESSION='i3 --shmlog-size 0'
 
-# Swap semi-colon and colon
-xmodmap -e 'keycode 47 = colon semicolon'
-
-# Keyboard shortcuts
-nohup sxhkd &>/dev/null &
+pgrep -x sxhkd > /dev/null || sxhkd &
+bluetoothctl power on & 
 
 # merge in defaults and keymaps
 
@@ -69,4 +66,5 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
-exec $(get_session "$1")
+# exec $(get_session "$1")
+exec bspwm

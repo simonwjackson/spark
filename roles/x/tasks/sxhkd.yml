@@ -17,9 +17,11 @@
     - sxhkdrc
 
 - name: Push sxhkdrc
-  template:
-    src: sxhkdrc.j2
+  copy:
+    src: sxhkdrc
     dest: /home/{{ user.name }}/.config/sxhkd/sxhkdrc
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
   tags:
     - sxhkd
     - sxhkdrc

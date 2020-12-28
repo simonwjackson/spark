@@ -1,12 +1,9 @@
 ---
-- name: Install i3
-  pacman:
+- name: Install bspwm-git
+  aur:
     name:
-      - i3-gaps
-    state: present
-
-- name: Install py3status
-  pacman: name=py3status state=present
+      - bspwm-git
+    user: "{{ user.name }}"
 
 - name: Verify that default applications file exists
   file: path=/etc/xdg/mimeapps.list state=touch
@@ -24,7 +21,6 @@
     dest: /usr/local/bin/window-switch
     mode: 0755
   tags:
-    - i3
     - fzf
 
 - name: Push browser tab switcher script
@@ -36,35 +32,42 @@
     - i3
     - fzf
 
-- name: Create i3 directory
+- name: Create bspwm directory
   file:
-    path: /home/{{ user.name }}/.config/i3
+    path: /home/{{ user.name }}/.config/bspwm
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
-    - i3
-    - i3rc
+    - bspwm
+    - bspwmrc
 
-- name: Push i3 config
-  template: 
-    src: config.j2
-    dest: /home/{{ user.name }}/.config/i3/config
+- name: Push bspwm config
+  copy: 
+    src: bspwmrc
+    dest: /home/{{ user.name }}/.config/bspwm/bspwmrc
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
-    - i3
-    - i3rc
+    - bspwm
+    - bspwmrc
 
-
-- name: Push i3-tmux-term
-  template: 
-    src: i3-tmux-term.sh.j2
-    dest: /usr/local/bin/i3-tmux-term
-    mode: 0755
+- name: Create polybar directory
+  file:
+    path: /home/{{ user.name }}/.config/polybar
+    state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
-    - i3
+    - polybar
+    - polybarrc
 
-- include: rofi.yml
+- name: Push polybar config
+  copy: 
+    src: bspwmrc
+    dest: /home/{{ user.name }}/.config/polybar/polybar
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - polybar
+    - polybarrc

@@ -237,7 +237,7 @@ gdm:
         tap_to_click: True
     accessibility_menu: True
 
-desktop_environment: i3
+desktop_environment: bspwm
 gnome:
     night_light:
         enabled: True
