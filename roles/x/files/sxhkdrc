@@ -2,9 +2,13 @@
 super + Return
   $TERMINAL
 
+# new floating term
+super + alt + Return
+  float $SHELL
+
 # kill focused window
 super + alt + q
-  bspc node -{c,k}
+  kill-or-close
 
 # start window switcher
 super + t
@@ -22,10 +26,10 @@ super + ctrl + m
 super + p
   float pianobar-list-stations
 
-# exit i3 (logs you out of your X session)
-super + shift + e
-  i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'
-
+# Generate password
+super + r ; g ; p
+    tr -dc "a-zA-Z0-9_#@.-" < /dev/urandom | head -c 14 | xclip -selection clipboard; \
+    notify-send Password generated
 
 #####################
 # Movement
@@ -39,12 +43,8 @@ super + g
 super + space
   bspc node -t ~floating
 
-# set the node flags
-super + alt + {m,x,y,z}
-  bspc node -g {marked,locked,sticky,private}
-
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+super + {_,alt + }{h,j,k,l}
   bspc node -{f,s} {west,south,north,east}
 
 # focus the older or newer node in the focus history
@@ -57,6 +57,16 @@ super + {o,i}
 super + {_,alt + }{1-9}
   bspc {desktop -f,node -d} '^{1-9}'
 
+# move window to another desktop
+super + apostrophe
+  bspc node -m next --follow
+
+# move workspace to another monitor 
+super + alt + apostrophe
+  desk=`bspc query -D -d focused`; \
+  bspc desktop -m {prev,next}; \
+  bspc desktop -f $desk
+
 	
 #####################
 # Resize
@@ -64,7 +74,12 @@ super + {_,alt + }{1-9}
 
 # expand a window by moving one of its side outward
 super + {Left,Down,Up,Right}
-  bspc node -z {right -20 0,bottom 0 20,bottom 0 -20,right 20 0}
+  STEP=20; SELECTION={1,2,3,4}; \
+  bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+  bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+super + alt + {Left,Right}
+  bspc node @/ -C {backward,forward}
 
 
 #####################
