@@ -4,7 +4,7 @@ super + Return
 
 # new floating term
 super + alt + Return
-  float $SHELL
+  term-float $SHELL
 
 # kill focused window
 super + alt + q
@@ -12,7 +12,7 @@ super + alt + q
 
 # start window switcher
 super + t
-  float window-switch
+  term-float window-switch
 
 # Lock screen
 super + alt + ctrl + l
@@ -20,11 +20,11 @@ super + alt + ctrl + l
 
 # Music menu
 super + ctrl + m
-  float music-menu
+  term-float music-menu
 
 # Pianobar
 super + p
-  float pianobar-list-stations
+  term-float pianobar-list-stations
 
 # Generate password
 super + r ; g ; p
@@ -36,7 +36,7 @@ super + r ; f ; f
   bt clients | awk '/ERROR/{print $3}' | xargs kill -9
 
 super + d; {_,super +} {d,a,n,g,x,t,j}
-  float tasker {_,_} {_,add,now,start,stop,toggle,journal}
+  term-float tasker {_,_} {_,add,now,start,stop,toggle,journal}
 
 XF86AudioPlay
   media-control toggle
@@ -133,4 +133,4 @@ super + b
 
 # File explorer
 super + f
-  float lf
+  term-float lf

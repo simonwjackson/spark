@@ -63,8 +63,6 @@ video_drivers:
   - xf86-video-intel 
 
 base_packages:
-    - arch-wiki-docs
-    - arch-wiki-lite
     - base-devel
     - bc
     - coreutils
@@ -89,7 +87,7 @@ base_packages:
     - screen
     - termdown
     - tig
-    - tmux
+    - tmux-git
 
 filesystem_packages:
     - dosfstools

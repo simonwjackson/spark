@@ -1,4 +1,12 @@
 ---
+- name: Install scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+
 - name: Install Xorg
   pacman: name=xorg-server state=present
 
@@ -72,17 +80,6 @@
     dest: /etc/X11/xorg.conf.d/20-intel.conf
   when: "'xf86-video-intel' in video_drivers"
 
-- name: Install floating window script
-  copy:
-    src: float.sh
-    dest: /usr/local/bin/float
-    mode: 0755
-
-- name: Push kill or close
-  copy:
-    src: kill-or-close.sh
-    dest: /usr/local/bin/kill-or-close
-    mode: 0755
 
 - name: Push xinitrc
   copy:

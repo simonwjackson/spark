@@ -14,6 +14,3 @@
     - { role: redshift, tags: ['redshift'] }
     - { role: sound, tags: ['sound'] }
     - { role: ripgrep, tags: ['ripgrep'] }
-  vars_prompt:
-    - name: user_password
-      prompt: "Enter desired user password"

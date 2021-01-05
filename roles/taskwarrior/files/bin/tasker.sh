@@ -86,7 +86,25 @@ case "${cmd}" in
       && quick_edit task \
       || task="${@:2}"
 
-    task add ${task} 
+    # TODO: move to hook
+    if echo "${task}" | grep -vqi "pro.*:"; then
+      project=$(
+        task \
+          rc.verbose= \
+          rc.json.array=off \
+          export \
+        | jq \
+          --raw-output \
+          "select(.project != null) | .project" \
+        | uniq \
+        | sort \
+        | fzf --reverse
+      )
+
+      task add project:"${project}" ${task} 
+    else
+      task add ${task} 
+    fi
   ;; 
 
   start)
