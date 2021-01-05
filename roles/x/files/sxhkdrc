@@ -28,8 +28,37 @@ super + p
 
 # Generate password
 super + r ; g ; p
-    tr -dc "a-zA-Z0-9_#@.-" < /dev/urandom | head -c 14 | xclip -selection clipboard; \
-    notify-send Password generated
+  tr -dc "a-zA-Z0-9_#@.-" < /dev/urandom | head -c 14 | xclip -selection clipboard; \
+  notify-send Password generated
+
+# restart brotabs
+super + r ; f ; f
+  bt clients | awk '/ERROR/{print $3}' | xargs kill -9
+
+super + d; {_,super +} {d,a,n,g,x,t,j}
+  float tasker {_,_} {_,add,now,start,stop,toggle,journal}
+
+XF86AudioPlay
+  media-control toggle
+
+XF86Audio{Next,Prev}
+  media-control {next,prev}
+
+# Toggle mute
+XF86AudioMute
+  pulseaudio-ctl mute
+
+# Change volume
+XF86Audio{Raise,Lower}Volume
+  pulseaudio-ctl {up,down} 2
+
+# Love/Tired songs (Pianobar) 
+super + XF86Audio{Lower,Raise}Volume
+  media-control {tired,love}
+
+# Ban songs (Pianobar) 
+super + alt + XF86AudioLowerVolume
+  media-control ban
 
 #####################
 # Movement
@@ -54,12 +83,15 @@ super + {o,i}
   bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,alt + }{1-9}
-  bspc {desktop -f,node -d} '^{1-9}'
+super + {_,alt + }{1-3,7-9}
+  bspc {desktop -f,node -d} {I,II,III,VII,VIII,IX}
+
+super + {_,alt + }{4-6}
+  bspc {monitor --focus,node --to-monitor} {DP1-8,VIRTUAL1,HDMI2} {_,--follow}
 
 # move window to another desktop
-super + apostrophe
-  bspc node -m next --follow
+#super + apostrophe
+# bspc node -m next --follow
 
 # move workspace to another monitor 
 super + alt + apostrophe
@@ -72,7 +104,7 @@ super + alt + apostrophe
 # Resize
 ##################### 
 
-# expand a window by moving one of its side outward
+# expandd; a window by moving one of its side outward # expandd; a window by moving one of its side outwa
 super + {Left,Down,Up,Right}
   STEP=20; SELECTION={1,2,3,4}; \
   bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \

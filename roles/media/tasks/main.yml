@@ -1,6 +1,5 @@
 ---
 - include: beets.yml
-- include: abcde.yml
 - include: imagemagick.yml
 - include: inkscape.yml
 - include: gimp.yml
@@ -32,11 +31,6 @@
     state: present
   tags:
     - mat
-
-- name: Install youtube-dl
-  pacman:
-    name: youtube-dl
-    state: present
 
 - name: Install zbar
   pacman:

@@ -1,13 +1,4 @@
 ---
-- name: Install Bash
-  pacman:
-    name:
-      - bash
-      - bash-completion
-    state: present
-  tags:
-    - shell
-
 - name: Install ZSH
   pacman:
     name:

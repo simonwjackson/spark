@@ -1,14 +1,21 @@
 #! /bin/sh
 
-if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload example &
-  done
-fi
+~/virtual-screen.sh setup
 
-bspc monitor DP1-8 -d 4 1 7
-#bspc monitor VIRTUAL1 -d 5
-bspc monitor HDMI2 -d 3 6 9
+monitors=(DP1-8 HDMI2)
+
+for i in "${monitors[@]}"
+do
+   : 
+   MONITOR=$i polybar --reload example &
+done
+
+
+bspc monitor DP1-8 -d I II III
+bspc monitor VIRTUAL1 -d V
+bspc monitor HDMI2 -d VII VIII IX
+
+~/virtual-screen.sh serve
 
 bspc config border_width         1
 bspc config window_gap          12

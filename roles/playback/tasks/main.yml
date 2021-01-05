@@ -1,0 +1,29 @@
+---
+- name: Install media scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+
+- name: Install packages
+  block:
+    - name: pacman
+      pacman:
+        name:
+          - mpv
+          - socat
+          - expect
+
+    - name: yay
+      aur:
+        name: 
+          - pianobar-git
+          - youtube-dl
+        user: "{{ user.name }}"
+
+    - name: pip
+      pip:
+        name: youtube-search
+        state: latest

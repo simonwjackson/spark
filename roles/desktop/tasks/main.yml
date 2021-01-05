@@ -1,0 +1,71 @@
+---
+- name: Install scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+
+- name: Install packages
+  block:
+    - name: yay
+      aur:
+        name: 
+          - bspwm-git
+          - polybar-git
+        user: "{{ user.name }}"
+
+- name: Mimeapps
+  block:
+    - name: Verify that default applications file exists
+      file:
+        path: /etc/xdg/mimeapps.list
+        state: touch
+        access_time: preserve
+        modification_time: preserve
+
+    - name: Verify header in default applications file
+      lineinfile:
+        dest: /etc/xdg/mimeapps.list
+        state: present
+        line: '[Default Applications]'
+        insertbefore: BOF
+
+- name: bspwm
+  tags:
+    - bspwm
+    - bspwmrc
+  block: 
+    - name: Create bspwm directory
+      file:
+        path: /home/{{ user.name }}/.config/bspwm
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Push bspwm config
+      copy: 
+        src: rc/bspwmrc
+        dest: /home/{{ user.name }}/.config/bspwm/bspwmrc
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+- name: polybar
+  tags:
+    - polybar
+    - polybarrc
+  block: 
+    - name: Create polybar directory
+      file:
+        path: /home/{{ user.name }}/.config/polybar
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Push polybar config
+      copy: 
+        src: rc/polybarrc
+        dest: /home/{{ user.name }}/.config/polybar/config
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"

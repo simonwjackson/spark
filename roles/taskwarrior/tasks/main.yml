@@ -11,3 +11,11 @@
   aur: name=taskopen user={{ user.name }}
   tags:
     - aur
+
+- name: Install scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
