@@ -1,11 +1,18 @@
 #!/bin/sh
 
+set -e
+
 music_dir="${HOME}/music"
 file_template="%(playlist_index)2d - %(title)s.%(ext)s"
 
+# cleanup
+# sed -e "s/\s\{2,\}/^/g" | awk -F '^' -v now=asd '{ print $1 "^" $2 "^" $3 "^" ( $4=="" ? "U":$4 ) "^" ( $5=="" ? now:$5 )}' | column -s "^" -t
+
+# Filter by Placement
+# awk -F '^' '$4 == "N" {print $0}'
+
 line=$(
   cat ${HOME}/music.txt \
-  | tr --squeeze-repeats '\t' '\t' \
   | column \
       --table \
       --separator $'\t' \
@@ -16,6 +23,9 @@ line=$(
       --reverse \
   | sed 's/\s\{2,\}/;/g'
 )
+
+echo $line
+exit 1
 
 
 cache=$(

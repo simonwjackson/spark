@@ -89,6 +89,14 @@ fzf-file-widget() {
 fzf-file-edit-widget() {
   fzf-file-widget "${@}" | xargs $EDITOR
 }
+
+# VIM is man
+man () {
+  export MANPAGER="col -b"
+  eval '/usr/bin/man $@ | vim -MR +"set filetype=man" -'; 
+  unset MANPAGER; 
+}
+
 # Theming section  
 autoload -U compinit colors zcalc
 compinit -d

@@ -18,7 +18,7 @@
 
 - name: Push sxhkdrc
   copy:
-    src: sxhkdrc
+    src: rc/sxhkdrc
     dest: /home/{{ user.name }}/.config/sxhkd/sxhkdrc
     owner: "{{ user.name }}"
     group: "{{ user.group }}"

@@ -19,7 +19,7 @@ super + alt + ctrl + l
   blurlock
 
 # Music menu
-super + ctrl + m
+super + alt + m
   term-float music-menu
 
 # Pianobar
@@ -35,8 +35,8 @@ super + r ; g ; p
 super + r ; f ; f
   bt clients | awk '/ERROR/{print $3}' | xargs kill -9
 
-super + d; {_,super +} {d,a,n,g,x,t,j}
-  term-float tasker {_,_} {_,add,now,start,stop,toggle,journal}
+super + d; {_,super +} {d,a,n,t,j,r}
+  term-float tasker {_,_} {_,add,now,toggle,journal,summary}
 
 XF86AudioPlay
   media-control toggle

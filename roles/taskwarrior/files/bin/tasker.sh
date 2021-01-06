@@ -24,24 +24,24 @@ function is_started () {
     )"
 }
 
-function get_task () { 
+function get_active_tasks () { 
     local return="${1}"
     local args="${@:2}"
 
-    eval $return=$(
+    eval $return=$(\
         task \
             rc.verbose= \
             rc.json.array=off \
             ${args} \
             export \
-        | jq -r '. | [.id,.description] | join("\t")' \
-        | column --table -s "\t" \
+        | jq -r 'select(.id != 0 and (.focus > 0 or .start != null)) | [.id,.description] | join("\t")' \
+        | column -s $'\t' \
         | fzf \
             --reverse \
             --exit-0 \
             --delimiter "\t" \
             --with-nth 2 \
-        | cut -f 1
+        | cut -f 1 \
     )
 }
 
@@ -53,6 +53,7 @@ function quick_edit () {
     nvim -c "\
         set noshowmode \
         | set noruler \
+        | startinsert \
         | set laststatus=0 \
         | set noshowcmd \
         | set cmdheight=1 \
@@ -76,9 +77,29 @@ case "${cmd}" in
       && quick_edit task \
       || task="${@:2}"
 
-    task add ${task} \
-    | sed 's/Created task \([[:digit:]]\+\)\./\1/' \
-    | xargs task start
+    new_task="focus:1 ${task}"
+
+    # TODO: move to hook
+    if echo "${task}" | grep -vqi "pro.*:"; then
+      project=$(
+        task \
+          rc.verbose= \
+          rc.json.array=off \
+          export \
+        | jq \
+          --raw-output \
+          'select(.project != null and .status == "pending") | .project' \
+        | uniq \
+        | sort \
+        | fzf --reverse --bind 'ctrl-a:print-query'
+      )
+      
+      new_task="project:'${project}' ${new_task}" 
+    fi
+
+     task add ${new_task} \
+     | sed 's/Created task \([[:digit:]]\+\)\./\1/' \
+     | xargs task start
   ;; 
 
   add)
@@ -95,10 +116,10 @@ case "${cmd}" in
           export \
         | jq \
           --raw-output \
-          "select(.project != null) | .project" \
+          'select(.project != null and .status == "pending") | .project' \
         | uniq \
         | sort \
-        | fzf --reverse
+        | fzf --reverse --bind 'ctrl-a:print-query'
       )
 
       task add project:"${project}" ${task} 
@@ -108,33 +129,14 @@ case "${cmd}" in
   ;; 
 
   start)
-    [ -z "${task}" ] && get_task task -ACTIVE
+    [ -z "${task}" ] && get_active_tasks task
 
-    is_started result "${task}"
-
+    "${script_path}" stop
     task "${task}" start
   ;; 
 
-  # TODO: Start and stop do not work. Export dumps the entire DB
-  # you can get the ids of filtered items and then xargs over them
-  # with task X export
-
   stop)
-    [ -z "${task}" ] && get_task task +ACTIVE
-
-    is_started result "${task}"
-
-    task "${task}" stop
-  ;; 
-
-  toggle)
-    [ -z "${task}" ] && get_task task
-
-    is_started result "${task}"
-
-    (( ${result} == 0 )) \
-      && task "${task}" start \
-      || task "${task}" stop
+    yes yes | task +ACTIVE stop
   ;; 
 
   journal)
@@ -166,7 +168,7 @@ Summary
 Timesheet
 =========
 
-$(timew summary)
+$(simple-daily-report)
 
 
 
@@ -174,15 +176,14 @@ $(timew summary)
 Completed
 =========
 
-$(task rc.verbose=label end.after:today completed)
-
+$(task rc.verbose=label rc.report.completed.columns=entry.age,project,tags,description rc.report.completed.labels=Age,Project,Tags,Description end.after:today completed)
 
 
 
 Ongoing
 ==========
 
-$(task rc.verbose=label started.after:today active)
+$(task rc.verbose=label rc.report.active.columns=entry.age,depends.indicator,project,tags,due,description rc.report.active.labels=Age,D,Project,Tags,Due,Description started.after:today active)
 " \
       | perl -0pe 's/^\s+|\s+$//g' \
       > "${fullpath}"
@@ -197,7 +198,7 @@ $(task rc.verbose=label started.after:today active)
 
 
   *)
-    echo "add,now,start,stop,toggle,summary,journal" \
+    echo "add,now,start,stop,summary,journal" \
     | tr ',' '\n' \
     | fzf \
         --layout=reverse \

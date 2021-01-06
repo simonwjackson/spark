@@ -83,7 +83,7 @@
 
 - name: Push xinitrc
   copy:
-    src: xinitrc
+    src: rc/xinitrc
     dest: /home/{{ user.name }}/.xinitrc
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -93,7 +93,7 @@
 
 - name: Push Xresources config
   copy:
-    src: Xresources
+    src: rc/Xresources
     dest: /home/{{ user.name }}/.Xresources
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -103,7 +103,7 @@
 
 - name: Push xmodmap config
   copy:
-    src: Xmodmap
+    src: rc/Xmodmap
     dest: /home/{{ user.name }}/.Xmodmap
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
