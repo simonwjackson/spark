@@ -1,3 +1,5 @@
+#!/bin/sh
+
 width=1768
 height=2125
 refresh=120

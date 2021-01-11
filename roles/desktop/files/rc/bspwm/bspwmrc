@@ -1,6 +1,6 @@
 #! /bin/sh
 
-~/virtual-screen.sh setup
+setup-monitors setup &
 
 monitors=(DP1-8 HDMI2)
 
@@ -10,12 +10,11 @@ do
    MONITOR=$i polybar --reload example &
 done
 
-
 bspc monitor DP1-8 -d I II III
 bspc monitor VIRTUAL1 -d V
 bspc monitor HDMI2 -d VII VIII IX
 
-~/virtual-screen.sh serve &
+pgrep x11vnc || setup-monitors serve &
 
 bspc config border_width         1
 bspc config window_gap          12
