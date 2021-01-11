@@ -102,6 +102,24 @@ less () {
   vim -u ~/.config/nvim/less.vimrc -
 }
 
+just-play () {
+  socket=/tmp/mpv.socket 
+
+  killall mpv
+
+  youtube-dl "ytsearch100:${@}" \
+    -j \
+    --flat-playlist \
+    --skip-download \
+  | jq --raw-output '.id' \
+  | sed 's_^_https://youtu.be/_' \
+  | mpv \
+      --input-ipc-server="${socket}" \
+      --ytdl-raw-options=format=bestaudio \
+      --shuffle \
+      --playlist=- &
+}
+
 # Theming section  
 autoload -U compinit colors zcalc
 compinit -d

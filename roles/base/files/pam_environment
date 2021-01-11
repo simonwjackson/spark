@@ -1,6 +1,8 @@
 TERMINAL=xterm
 EDITOR=nvim
 VISUAL=nvim
+PAGER=less
+SHELL=zsh
 
 # Color man pages
 LESS_TERMCAP_mb=$'\E[01;32m'
