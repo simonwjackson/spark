@@ -1,0 +1,10 @@
+{
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+    "eslint.autoFixOnSave": true,
+    "diagnostic.errorSign": "▌",
+    "diagnostic.warningSign": "▌",
+    "diagnostic.infoSign": "▌",
+    "tsserver.enable": true,
+    "tsserver.npm": "/usr/sbin/npm",
+    "suggest.timeout": 15000,
+}

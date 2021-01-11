@@ -3,3 +3,27 @@
   pacman:
     name: "{{ editors }}"
     state: present
+
+- name: Neovim 
+  block: 
+    - name: Push nvim config
+      copy:
+        src: rc/nvim
+        dest: /home/{{ user.name }}/.config
+        mode: preserve 
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"   
+      tags:
+        - neovim
+
+    - name: Install vim-plug-git
+      pacman:
+        name: vim-plug-git
+        state: present
+
+    - name: Install neovim python support
+      pip:
+        name: neovim
+        state: latest
+      tags:
+        - neovim

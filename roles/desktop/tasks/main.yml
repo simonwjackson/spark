@@ -38,7 +38,8 @@
     - bspwmrc
   block: 
     - name: Push bspwm config
-      copy: 
+      copy:
+        mode: preserve 
         src: rc/bspwm
         dest: /home/{{ user.name }}/.config
         owner: "{{ user.name }}"

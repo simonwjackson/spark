@@ -5,6 +5,7 @@
     - { role: base, tags: ['base'] }
     - { role: blacklist, tags: ['blacklist'] }
     - { role: env, tags: ['env'] }
+    - { role: editors, tags: ['editors'] }
     - { role: cron, tags: ['cron'] }
     - { role: x, tags: ['x'] }
     - { role: desktop, tags: ['desktop'] }
