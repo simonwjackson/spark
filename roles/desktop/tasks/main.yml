@@ -37,17 +37,10 @@
     - bspwm
     - bspwmrc
   block: 
-    - name: Create bspwm directory
-      file:
-        path: /home/{{ user.name }}/.config/bspwm
-        state: directory
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-
     - name: Push bspwm config
       copy: 
-        src: rc/bspwmrc
-        dest: /home/{{ user.name }}/.config/bspwm/bspwmrc
+        src: rc/bspwm
+        dest: /home/{{ user.name }}/.config
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
 

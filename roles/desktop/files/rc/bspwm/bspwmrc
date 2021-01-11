@@ -33,8 +33,9 @@ bspc rule -a mpv state=floating
 
 # Autostart applications
 bspc desktop --focus V && alacritty &
+pgrep bspswallow || bspswallow &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-clipit &
+pgrep clipit || clipit &
 blueman-applet &
 xautolock -time 10 -locker blurlock &
 ff-theme-util &

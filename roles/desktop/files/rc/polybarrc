@@ -105,7 +105,7 @@ type = custom/script
 ; Available tokens:
 ;   %counter%
 ; Command to be executed (using "/bin/sh -c [command]")
-exec = cat /tmp/pianobar.nowplaying
+exec = echo "$(cat /tmp/pianobar.title) - $(cat /tmp/pianobar.artist)   ($(cat /tmp/pianobar.station))"
 
 ; Conditional command that, if defined, needs to exit successfully
 ; before the main exec command is invoked.
