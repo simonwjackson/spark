@@ -97,6 +97,11 @@ man () {
   unset MANPAGER; 
 }
 
+# VIM is less
+less () {
+  vim -u ~/.config/nvim/less.vimrc -
+}
+
 # Theming section  
 autoload -U compinit colors zcalc
 compinit -d
@@ -122,3 +127,4 @@ alias cc="fzf-cd-widget"
 alias ch="fzf-cd-widget ${HOME}"
 alias ff="fzf-file-widget"
 alias fe="fzf-file-edit-widget"
+alias more="less"
