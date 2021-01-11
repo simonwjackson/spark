@@ -1,12 +1,12 @@
 #!/bin/sh
 
-SOCKET=/tmp/mpv.socket
+socket=/tmp/mpv.socket
 
 if ! pidof mpv; then
-  nohup mpv --input-ipc-server="${SOCKET}" "${@}" &
+  nohup mpv --input-ipc-server="${socket}" "${@}" &
   sleep 1
 else
-  echo "{ \"command\": [\"loadfile\", \"${@}\"] }" | socat - "${SOCKET}";
+  echo "{ \"command\": [\"loadfile\", \"${@}\"] }" | socat - "${socket}";
 fi
 
-echo "{ \"command\": [\"set_property\", \"video\", \"no\"] }" | socat - "${SOCKET}"
+echo "{ \"command\": [\"set_property\", \"video\", \"no\"] }" | socat - "${socket}"

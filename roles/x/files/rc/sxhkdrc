@@ -20,7 +20,7 @@ super + alt + ctrl + l
 
 # Music menu
 super + alt + m
-  term-float music-menu
+  term-float music-menu play
 
 # Pianobar
 super + p
@@ -38,11 +38,11 @@ super + r ; f ; f
 super + d; {_,super +} {d,a,n,t,j,r}
   term-float tasker {_,_} {_,add,now,toggle,journal,summary}
 
-XF86AudioPlay
-  media-control toggle
-
-XF86Audio{Next,Prev}
-  media-control {next,prev}
+XF86Audio{Play,Next,Prev}
+  media-control {toggle,next,prev}
+  
+super + XF86AudioPlay
+  media-control explain
 
 # Toggle mute
 XF86AudioMute
@@ -52,13 +52,13 @@ XF86AudioMute
 XF86Audio{Raise,Lower}Volume
   pulseaudio-ctl {up,down} 2
 
-# Love/Tired songs (Pianobar) 
-super + XF86Audio{Lower,Raise}Volume
-  media-control {tired,love}
+# Pianobar
+super + XF86Audio{Rewind,LowerVolume,RaiseVolume,Forward}
+  media-control {ban,tired,like,bookmark}
 
-# Ban songs (Pianobar) 
-super + alt + XF86AudioLowerVolume
-  media-control ban
+#XF86MonBrightnessUp
+
+#XF86MonBrightnessDown
 
 #####################
 # Movement
@@ -104,7 +104,7 @@ super + alt + apostrophe
 # Resize
 ##################### 
 
-# expandd; a window by moving one of its side outward # expandd; a window by moving one of its side outwa
+# expand; a window by moving one of its side outward # expandd; a window by moving one of its side outwa
 super + {Left,Down,Up,Right}
   STEP=20; SELECTION={1,2,3,4}; \
   bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \

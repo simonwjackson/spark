@@ -1,5 +1,5 @@
 audio_quality = high
 sample_rate = 44100
 autostart_station =
-fifo = /tmp/pianobar.ctl
-event_command = pianobar-event
+fifo = /tmp/pianobar.control
+event_command = /usr/local/bin/pianobar-notify

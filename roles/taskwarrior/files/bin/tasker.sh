@@ -89,8 +89,8 @@ case "${cmd}" in
         | jq \
           --raw-output \
           'select(.project != null and .status == "pending") | .project' \
-        | uniq \
         | sort \
+        | uniq \
         | fzf --reverse --bind 'ctrl-a:print-query'
       )
       
@@ -117,8 +117,8 @@ case "${cmd}" in
         | jq \
           --raw-output \
           'select(.project != null and .status == "pending") | .project' \
-        | uniq \
         | sort \
+        | uniq \
         | fzf --reverse --bind 'ctrl-a:print-query'
       )
 
@@ -137,6 +137,7 @@ case "${cmd}" in
 
   stop)
     yes yes | task +ACTIVE stop
+    timew stop
   ;; 
 
   journal)

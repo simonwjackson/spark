@@ -1,12 +1,12 @@
 #!/bin/sh
 
 mpvsocket="/tmp/mpv.socket" 
-pianobarfifo="/tmp/pianobar.ctl" 
+pianobarfifo="/tmp/pianobar.control" 
 app=false
 
-if ps -e | grep pianobar; then
+if [[ -n $(pidof pianobar) ]]; then	
   app="pianobar"
-elif ps -e | grep mpv; then
+elif [[ -n $(pidof mpv) ]]; then
   app="mpv"
 fi
 
@@ -42,30 +42,37 @@ case "$1" in
 	seek)
 		echo "{ \"command\": [\"seek\", \"${2}\"] }" | socat - ${mpvsocket}
 		;;
+		
+	explain) 
+		if [ "$app" = "pianobar" ]; then
+			term-float "control-pianobar explain | fzf"
+		fi
+	;;
 
-    # Skip song for 30 days
+  # Skip song for 30 days
 	tired) 
 		if [ "$app" = "pianobar" ]; then
 			echo -n 't' > "${pianobarfifo}"
 		fi
 		;;
 
-	love) 
+	like) 
 		if [ "$app" = "pianobar" ]; then
-			echo -n '+' > "${pianobarfifo}"
-            date_with_week_num=$(date +"%Y-%m.w%W")
-			music_dir="${HOME}/new-music"
-			date_dir="${music_dir}/${date_with_week_num}"
-			mkdir -p "${date_dir}"
-			cat /tmp/pianobar.nowplaying >> "${date_dir}/${date_with_week_num}.txt"
-			# Uniqe lines
-			awk '!seen[$0]++' "${date_dir}/${date_with_week_num}.txt"
-			youtube-dl \
-			  --format=bestaudio \
-			  --extract-audio \
-			  --audio-format vorbis \
-			  --output="${date_dir}/$(cat /tmp/pianobar.nowplaying).%(ext)s" \
-			  ytsearch1:"$(cat /tmp/pianobar.nowplaying)" 
+			control-pianobar love
+		fi
+		;;
+
+	bookmark) 
+		if [ "$app" = "pianobar" ]; then
+			control-pianobar love
+			sleep .25
+			control-pianobar bookmark
+			# youtube-dl \
+			#   --format=bestaudio \
+			#   --extract-audio \
+			#   --audio-format vorbis \
+			#   --output="${date_dir}/$(cat /tmp/pianobar.now-playing).%(ext)s" \
+			#   ytsearch1:"$(cat /tmp/pianobar.now-playing)" 
 		fi
 		;;
 
