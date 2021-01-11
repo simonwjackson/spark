@@ -1,0 +1,47 @@
+---
+- name: Install universal base packages
+  pacman:
+      name: tmux-git
+      state: present
+  tags:
+    - packages
+
+- name: Push tmux config
+  copy:
+    src: rc/tmux
+    dest: /home/{{ user.name }}/.config
+    mode: preserve 
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"   
+  tags:
+    - tmux
+
+- name: Create a symbolic link
+  file:
+    src: /home/{{ user.name }}/.config/tmux/tmux.conf
+    dest: /home/{{ user.name }}/.tmux.conf
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"   
+    state: link
+  tags:
+    - tmux
+
+- name: Create tmux plugin dir
+  file:
+    path: /home/{{ user.name }}/.local/share/tmux/plugins
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  tags:
+    - tmux
+    - tpm
+
+- name: Clone tmux plugin manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: /home/{{ user.name }}/.local/share/tmux/plugins/tpm
+    accept_hostkey: yes
+    update: no
+  become: yes
+  become_user: "{{ user.name }}"
+
