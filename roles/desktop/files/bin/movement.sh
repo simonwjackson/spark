@@ -6,9 +6,6 @@ case "${2}" in
   tmux)
     app=tmux 
   ;;
-  nvim)
-    app=nvim 
-  ;;
 esac
 
 if [[ "${app}" == "" ]] && $(echo "$window" | grep -qiE "tmux$" -); then
@@ -26,8 +23,10 @@ if [[ "${app}" == "" ]] && $(echo "$window" | grep -qiE "tmux$" -); then
       xdotool keyup "l" key --clearmodifiers "alt+l"
     ;;
   esac
+  exit 0
 elif [[ "${app}" == "" ]]; then
   bspc node -f "${1}" 
+  exit 0
 fi
 
 echo "W:::$window A:::$app ARG1:::$1 ARG2:::$2" >> /tmp/movlog
@@ -39,7 +38,7 @@ if [ "${app}" != "" ]; then
         if [ $(tmux display-message -p '#{pane_at_left}') -ne 1 ]; then
           tmux select-pane -L
         else
-          bspc node -f "${1}"
+          bspc node -f "${1}" 
         fi
       fi
     ;;
@@ -49,7 +48,7 @@ if [ "${app}" != "" ]; then
         if [ $(tmux display-message -p '#{pane_at_bottom}') -ne 1 ]; then
           tmux select-pane -D
         else
-          bspc node -f "${1}"
+          bspc node -f "${1}" 
         fi
       fi
     ;;
@@ -59,7 +58,7 @@ if [ "${app}" != "" ]; then
         if [ $(tmux display-message -p '#{pane_at_top}') -ne 1 ]; then
           tmux select-pane -U
         else
-          bspc node -f "${1}"
+          bspc node -f "${1}" 
         fi
       fi
     ;;
@@ -69,10 +68,10 @@ if [ "${app}" != "" ]; then
         if [ $(tmux display-message -p '#{pane_at_right}') -ne 1 ]; then
           tmux select-pane -R
         else
-          bspc node -f "${1}"
+          bspc node -f "${1}" 
         fi
       fi
     ;;
   esac
 fi
-#bind Down run-shell "if [ $(tmux display-message -p '#{pane_at_bottom}') -ne 1 ] ; then tmux select-pane -D; fi"
+exit 0

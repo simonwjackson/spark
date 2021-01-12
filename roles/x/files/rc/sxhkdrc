@@ -1,6 +1,6 @@
 # new term
 super + Return
-  $TERMINAL
+  $TERMINAL -e "tmux new-session" 
 
 # new floating term
 super + alt + Return
