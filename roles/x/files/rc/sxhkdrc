@@ -73,8 +73,12 @@ super + space
   bspc node -t ~floating
 
 # focus the node in the given direction
-super + {_,alt + }{h,j,k,l}
-  bspc node -{f,s} {west,south,north,east}
+super + {h,j,k,l}
+  movement {west,south,north,east}
+
+# focus the node in the given direction
+super + alt + {h,j,k,l}
+  bspc node -s {west,south,north,east}
 
 # focus the older or newer node in the focus history
 super + {o,i}

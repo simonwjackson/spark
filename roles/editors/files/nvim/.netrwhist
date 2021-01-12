@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
-let g:netrw_dirhist_7='/home/simonwjackson/.config/nvim'
-let g:netrw_dirhist_6='/home/simonwjackson/.config/bspwm'
-let g:netrw_dirhist_5='/home/simonwjackson/spark/roles/playback/files/bin'
-let g:netrw_dirhist_4='/home/simonwjackson/spark/roles/playback/files'
-let g:netrw_dirhist_3='/home/simonwjackson/spark/roles/playback'
-let g:netrw_dirhist_2='/home/simonwjackson/spark/roles'
-let g:netrw_dirhist_1='/home/simonwjackson/spark'
