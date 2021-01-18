@@ -1,13 +1,9 @@
 # new term
-super + Return
-  $TERMINAL -e "tmux new-session" 
-
-# new floating term
-super + alt + Return
-  term-float $SHELL
+super + {_, alt +} Return
+  {$TERMINAL -e , term-float } "tmux new-session" 
 
 # kill focused window
-super + alt + q
+super + x
   kill-or-close
 
 # start window switcher
@@ -20,11 +16,11 @@ super + alt + ctrl + l
 
 # Music menu
 super + alt + m
-  term-float music-menu play
+  term-float muzik play
 
 # Pianobar
 super + p
-  term-float pianobar-list-stations
+  term-float control-pianobar station
 
 # Generate password
 super + r ; g ; p
