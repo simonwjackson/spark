@@ -50,7 +50,9 @@
 
 - name: Install x11vnc
   aur:
-    name: x11vnc-git
+    name: 
+      - x11vnc-git 
+      - libvncserver-git
     user: "{{ user.name }}"
   tags:
     - x11vnc
