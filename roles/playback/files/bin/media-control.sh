@@ -17,12 +17,14 @@ case "$1" in
 		| internet-album --cache \
 		| tr '\n' ' ' \
 		| xargs mpv
+		;; 
   search)
     muzik search \
 		| jq -r '.ids.youtube' \
 		| internet-album --cache \
 		| tr '\n' ' ' \
 		| xargs mpv
+		;; 
 	toggle) 
 		if [ "$app" = "pianobar" ]; then
 			echo -n 'p' > "${pianobarfifo}"
