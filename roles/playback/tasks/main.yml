@@ -15,13 +15,13 @@
           - mpv
           - socat
           - expect
+          - jq
 
     - name: yay
       aur:
         name: 
           - pianobar-git
           - youtube-dl
-          - jq
         user: "{{ user.name }}"
 
     - name: pip
