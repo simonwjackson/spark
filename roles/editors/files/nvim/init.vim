@@ -199,6 +199,11 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+Plug 'tools-life/taskwiki'
+Plug 'blindFS/vim-taskwarrior'
+Plug 'powerman/vim-plugin-AnsiEsc'
+
 
 
 call plug#end()
@@ -2303,3 +2308,25 @@ function! s:BspwmAwareNavigate(direction)
     call system(cmd)
   endif
 endfunction
+
+let g:vimwiki_global_ext = 0
+let g:vimwiki_markdown_link_ext = 1
+let g:vimwiki_links_space_char = '-'
+let g:vimwiki_autowriteall = 1
+
+let personal = {}
+let personal.path = '~/vimwiki'
+
+let guides = {}
+let guides.path = '~/guides'
+let guides.main = 'README'
+let guides.autowriteall = 1
+let guides.syntax = 'markdown'
+let guides.ext = '.md'
+
+let g:vimwiki_list = [personal,guides]
+let g:vimwiki_ext2syntax = {
+      \ '.md': 'markdown',
+      \ '.markdown': 'markdown',
+      \ '.mdown': 'markdown'
+      \ }

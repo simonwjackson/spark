@@ -19,3 +19,11 @@
     mode: 0755 
   with_fileglob:
     - files/bin/*
+
+# Needed for taskwiki
+- name: Install tasklib
+  pip:
+    name: tasklib
+    state: latest
+  tags:
+    - tasklib
