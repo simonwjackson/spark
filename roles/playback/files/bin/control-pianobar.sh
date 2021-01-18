@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Copyright (c) 2012
-# Artur de S. L. Malabarba
+# Copyright (c) 2021
+# Simon W. Jackson
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -153,6 +153,8 @@ while :; do
 
       key_press '$'
 
+      # | tail --lines=+2 \
+      # | head --lines=-2 \
       tac "$log_file" \
       | head -n 15 \
       | grep -v '^\(stationId\|musicId\)' \
@@ -161,8 +163,6 @@ while :; do
       | sed 's/album:./\nalbum^^^/g' \
       | sort \
       | uniq \
-      | tail --lines=+2 \
-      | head --lines=-2 \
       | ( \
           if [[ "${show_urls}" == "true" ]]; then
             cat

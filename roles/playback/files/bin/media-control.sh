@@ -11,6 +11,18 @@ elif [[ -n $(pidof mpv) ]]; then
 fi
 
 case "$1" in 
+  library)
+    muzik library \
+		| jq -r '.ids.youtube' \
+		| internet-album --cache \
+		| tr '\n' ' ' \
+		| xargs mpv
+  search)
+    muzik search \
+		| jq -r '.ids.youtube' \
+		| internet-album --cache \
+		| tr '\n' ' ' \
+		| xargs mpv
 	toggle) 
 		if [ "$app" = "pianobar" ]; then
 			echo -n 'p' > "${pianobarfifo}"

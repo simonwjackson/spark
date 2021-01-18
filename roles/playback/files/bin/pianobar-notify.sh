@@ -118,11 +118,14 @@ case "$1" in
     name_template="$(cat ${title_file}) - $(cat ${artist_file})"
 		echo "${name_template}" >> "${date_dir}/${date_with_week_num}.txt"
 		awk '!seen[$0]++' "${date_dir}/${date_with_week_num}.txt" # Uniqe lines
-    wget \
-      --output-document="${date_dir}/$(cat ${title_file}) - $(cat ${artist_file}).mp4" \
-      "${url}"
     notify-send "Downloading: ${name_template}"
-    #${audioUrl}
+    filename="${date_dir}/$(cat ${title_file}) - $(cat ${album_file}) - $(cat ${artist_file}).mp4"
+    wget \
+      --output-document="${filename}" \
+      "${url}" \
+    && id3tag --artist="$(cat ${artist_file})" "${filename}" \
+    && id3tag --album="$(cat ${album_file})" "${filename}" \
+    && id3tag --song="$(cat ${title_file})" "${filename}"
   ;;
 
   songlove)
