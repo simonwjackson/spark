@@ -15,7 +15,6 @@
   pip:
     name: brotab
     state: latest
-    extra_args: --user
   tags:
     - brotabs
 

@@ -21,6 +21,7 @@
         name: 
           - pianobar-git
           - youtube-dl
+          - jq
         user: "{{ user.name }}"
 
     - name: pip
