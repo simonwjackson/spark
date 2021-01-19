@@ -1,8 +1,8 @@
 ---
 - name: Install universal base packages
-  pacman:
+  aur:
       name: tmux-git
-      state: present
+      user: simonwjackson
   tags:
     - packages
 

@@ -17,9 +17,9 @@
         - neovim
 
     - name: Install vim-plug-git
-      pacman:
+      aur:
         name: vim-plug-git
-        state: present
+        user: "{{ user.name }}"
 
     - name: Install neovim python support
       pip:

@@ -8,8 +8,6 @@ user:
         dir: log
         rotate: 8
 
-hostname: logan
-
 dotfiles:
     url: git@github.com:simonwjackson/dotfiles.git
     destination: projects/dotfiles
@@ -57,7 +55,7 @@ network:
         - faeec88c-79ec-4840-ab25-ea356af8a81b
 
 editors:
-    - nvim
+    - neovim
 
 video_drivers: 
   - xf86-video-intel 
@@ -87,7 +85,6 @@ base_packages:
     - screen
     - termdown
     - tig
-    - tmux-git
 
 filesystem_packages:
     - dosfstools
@@ -289,7 +286,7 @@ base_fonts:
     - ttf-ubuntu-font-family
 
 aur_fonts:
-    - ttf-bitstream-charter
+    #- ttf-bitstream-charter
     - ttf-cooper-hewitt
     - ttf-courier-prime
     - ttf-heuristica
