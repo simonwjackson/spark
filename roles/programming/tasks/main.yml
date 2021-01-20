@@ -1,0 +1,10 @@
+---
+# TODO: expand
+- name: Install dasht
+  aur:
+    name:
+      - dasht
+    user: "{{ user.name }}"
+  tags:
+    - aur
+

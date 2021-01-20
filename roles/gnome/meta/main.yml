@@ -1,6 +1,3 @@
 ---
 dependencies:
-  - { role: dconf }
   - { role: x }
-  - { role: gdm }
-  - { role: networkmanager }

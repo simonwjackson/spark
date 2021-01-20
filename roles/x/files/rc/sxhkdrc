@@ -15,14 +15,14 @@ super + alt + ctrl + l
   blurlock
 
 # Music menu
-super + p; s
+super + p; {_, super +}s
   term-float muzik search
 
-super + p; l
-  term-float muzik search
+super + p; {_, super +}l
+  term-float muzik library
 
 # Pianobar
-super + p; p
+super + p; {_, super +}p
   term-float control-pianobar station
 
 # Generate password
@@ -134,7 +134,7 @@ super + m
 super + b; {_, super +}b
   qutebrowser
 
-super + b; f
+super + b; {_, super +}f
   firefox
 
 # File explorer
