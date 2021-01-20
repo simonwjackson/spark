@@ -22,11 +22,26 @@
 # THE SOFTWARE.
 
 
+declare -A usage
 declare -r script_path="$(realpath $0)"
 declare -r itunes_results_path="/tmp/itunes.results"
 declare -r tmp_db=$(mktemp)
 
 set -e
+
+usage["main"]="Usage:
+  $(basename $0) COMMAND [ARGS...]
+  $(basename $0) help COMMAND
+
+Commands:
+  search    Search for metadata
+  library   Interactive selection of your library
+  help      Give detailed help on a specific sub-command"
+
+usage["search"]="Usage: $(basename $0) search [options]
+
+Options:
+  -a, --add Add the result to your library"
 
 
 ###########
@@ -40,7 +55,7 @@ config_file="${XDG_CONFIG_HOME:-$HOME/.config}/muzik/config"
 
 muzik_db="${muzik_db:-${HOME}/muzik.db}"
 
-
+touch ${muzik_db}
 
 ############
 # Helper   #
@@ -101,7 +116,7 @@ function scrape_google_search () {
 function to_db () {
   while read -r entry; do
     echo "${entry}" \
-    | jq -r '[.artist, .album, .youtube_id] | @tsv' \
+    | jq -r '[.artist, .album, .ids.youtube] | @tsv' \
     | sed -e "s/\t/^/g" \
     | sed -e "s/^/\n/g" \
     | cat "${muzik_db}" - \
@@ -180,24 +195,6 @@ function library () {
        "placement": .[3],
        "date_added": .[4],
     })'
-
-  # [ -z "${line}" ] && exit 1
-
-  # album_cache_dir=$(
-  #   echo $line \
-  #   | awk -v music_dir="${music_dir}" -F ';' '{print music_dir "/" $1 " - " $2}'
-  # )
-  #
-  # # Does album_cache_dir dir exist
-  # if find "${album_cache_dir}" -type d -empty &> /dev/null; then
-  #   mpv-audio "${album_cache_dir}"
-  # else
-  #   notify-send "Downloading.."
-  #   echo "Downloading.."
-  #
-  #   # Start downloading, spawn and disown the process
-  #   download "${album_cache_dir}"
-  # fi
 }
 
 
@@ -223,6 +220,16 @@ function itunes_search () {
 
 while :; do
   case $1 in
+    --help)
+      shift
+      echo "${usage[main]}"
+      break
+    ;; 
+    help)
+      shift
+      echo "${usage[${1}]}"
+      break
+    ;; 
     add)
       shift
       to_db "${1}" "${2}"
@@ -312,6 +319,7 @@ while :; do
       printf 'WARN: Unknown command (ignored): %s\n' "$1" >&2
     ;;
     *)
+      echo "$usage" >&2
       break
   esac
   shift

@@ -84,7 +84,9 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " fzf for vim
-Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim' | Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/rpc' }
 
 
 " Ease your git workflow within Vim
@@ -204,7 +206,7 @@ Plug 'tools-life/taskwiki'
 Plug 'blindFS/vim-taskwarrior'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-
+Plug 'ZhiyuanLck/vim-lf'
 
 call plug#end()
 
@@ -2148,11 +2150,11 @@ vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 
 " Finding Files
-nnoremap <silent> <F6>      :<C-u>CocCommand fzf-preview.GitStatus<CR>
-nnoremap <silent> <F7>      :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
-nnoremap <silent> <F8>      :<C-u>CocCommand fzf-preview.Buffers<CR>
-nnoremap <silent> <F9>     :call SmartRanger()<CR>
-nnoremap <silent> <F10>     :<C-u>CocCommand fzf-preview.ProjectOldFiles<CR>
+nnoremap <silent> <F6>      :FzfPreviewGitActions<CR>
+nnoremap <silent> <F7>      :FzfPreviewProjectFiles<CR>
+nnoremap <silent> <F8>      :FzfPreviewBuffers<CR>
+nnoremap <silent> <F9>      :call SmartRanger()<CR>
+nnoremap <silent> <F10>     :FzfPreviewOldFiles<CR>
 
 " Finding code
 nnoremap          <F19>     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>TODO<CR>
