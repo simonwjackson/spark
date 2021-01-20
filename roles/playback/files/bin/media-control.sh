@@ -19,11 +19,13 @@ case "$1" in
 		| xargs mpv
 		;; 
   search)
-    muzik search \
+	  shift
+    muzik search $@\
 		| jq -r '.ids.youtube' \
-		| internet-album --cache \
+		| internet-album \
 		| tr '\n' ' ' \
 		| xargs mpv
+		break
 		;; 
 	toggle) 
 		if [ "$app" = "pianobar" ]; then

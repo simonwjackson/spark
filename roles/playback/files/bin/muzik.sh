@@ -25,7 +25,6 @@
 declare -r script_path="$(realpath $0)"
 declare -r itunes_results_path="/tmp/itunes.results"
 declare -r tmp_db=$(mktemp)
-declare -r youtube_playlist_prefix='https://music.youtube.com/playlist?list='
 
 set -e
 
@@ -80,13 +79,13 @@ function scrape_google_search () {
     clean_artist=$(
       echo "${html}" \
       | grep 'data-attrid="subtitle">' \
-      | perl -lane 'print m/data-attrid="subtitle">.*?album by (.+?)<\/div>/gi'
+      | perl -lane 'print m/data-attrid="subtitle">.*?album by (.+?)<\/.+?>/gi'
     )
 
     clean_album=$(
       echo "${html}" \
       | grep 'data-attrid="title' \
-      | perl -lane 'print m/data-attrid="title">.+?>(.+?)<\/span>/g'
+      | perl -lane 'print m/data-attrid="title">.+?>(.+?)<\/.+?>/g'
     )
 
     jq \
@@ -219,22 +218,7 @@ function itunes_search () {
     --phony \
   | awk \
     -F '   *' \
-    '{print "\"" $3 "\" " "\"" $4 "\""}' \
-  # | sed -e "s/\s\{2,\}/^^^/g" \
-  # | jq \
-  #   --raw-input \
-  #   'split("^^^") | ([{
-  #      "artist": .[2],
-  #      "album": .[3],
-  #      "ids": {
-  #        "itunes": .[0]
-  #      },
-  #      "release": .[1],
-  #   }])'
-  # | jq \
-  #   -r \
-  #   '.youtube_id' \
-  # | (echo -n "${youtube_playlist_prefix}" && cat)
+    '{print "\"" $3 "\" " "\"" $4 "\""}'
 }
 
 while :; do
@@ -273,8 +257,9 @@ while :; do
         shift
       done
 
-      itunes_search $@ \
-      | scrape_google_search \
+      ([ $# -eq 0 ] \
+          && itunes_search \
+          || echo "$@" | scrape_google_search) \
       | (
         if [ $add -eq 1 ]; then
           to_db
