@@ -44,3 +44,6 @@
 - include: packages.yml
 - include: journal.yml
 - include: tmux.yml
+- include: pam.yml
+- include: archive.yml
+- include: filesystems.yml

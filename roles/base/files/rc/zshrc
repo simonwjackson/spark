@@ -22,7 +22,9 @@ HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
-
+# Spaceship
+autoload -U promptinit; promptinit
+prompt spaceship
 
 ## Keybindings section
 # Vi mode

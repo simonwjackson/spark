@@ -15,5 +15,13 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
-    - sxhkd
-    - sxhkdrc
+    - shell
+    - zsh
+    - zshrc
+    - rc
+    - config
+
+- name: Set zsh as default shell
+  user: 
+    name: "{{ user.name }}"
+    shell: /usr/bin/zsh

@@ -36,6 +36,7 @@
   tags:
     - bspwm
     - bspwmrc
+    - config
   block: 
     - name: Push bspwm config
       copy:
@@ -45,10 +46,14 @@
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
 
+    - name: Reload bspwm
+      command: bspc wm -r
+  
 - name: polybar
   tags:
     - polybar
     - polybarrc
+    - config
   block: 
     - name: Create polybar directory
       file:

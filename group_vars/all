@@ -316,9 +316,12 @@ kernel_parameters: "quiet consoleblank=60"
 
 env:
   pam:
-    TERMINAL: xterm
-    EDITOR: /usr/bin/nvim
-    VISUAL: /usr/bin/nvim
+    TERM: xterm-256color
+    TERMINAL: kitty
+    EDITOR: nvim
+    VISUAL: nvim
+    PAGER: less
+    SHELL: zsh
     TZ: "America/Chicago"
     LANG: "en_US.utf8"
     LC_CTYPE: "en_US.UTF-8"

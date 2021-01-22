@@ -3,11 +3,3 @@
   pacman:
     name: aria2
     state: present
-
-- name: Jail aria2
-  file:
-    src: /usr/bin/firejail
-    dest: /usr/local/bin/aria2c
-    state: link
-  tags:
-    - firejail

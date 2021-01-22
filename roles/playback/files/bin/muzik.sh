@@ -266,7 +266,8 @@ while :; do
 
       ([ $# -eq 0 ] \
           && itunes_search \
-          || echo "$@" | scrape_google_search) \
+          || echo "$@") \
+      | scrape_google_search \
       | (
         if [ $add -eq 1 ]; then
           to_db

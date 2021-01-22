@@ -1,4 +1,0 @@
----
-dependencies:
-  - { role: openresolv }
-  - { role: systemd }

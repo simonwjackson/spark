@@ -3,4 +3,3 @@ dependencies:
   - { role: nmtrust }
   - { role: systemd }
   - { role: cron }
-  - { role: firejail }

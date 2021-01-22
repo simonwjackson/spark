@@ -1,0 +1,16 @@
+---
+- name: pam_environment 
+  tags: 
+    - env
+    - config
+  block: 
+    - file:
+        path: "/home/{{ user.name }}/.pam_environment"
+        state: touch
+
+    - lineinfile:
+        dest: "/home/{{ user.name }}/.pam_environment"
+        regexp: '{{ item.key }}='
+        state: present
+        line: "{{ item.key }}={{ item.value }}"
+      loop: "{{ env.pam | dict2items }}"

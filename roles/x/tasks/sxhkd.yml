@@ -1,27 +1,50 @@
 ---
-- name: Install sxhkd
-  pacman:
-    name: sxhkd
-    state: present
+- name: Sxhkd
   tags:
     - sxhkd
+  block:
+    - name: Sxhkd | Install
+      pacman:
+        name: sxhkd
+        state: present
 
-- name: Create sxhkd config dir
-  file:
-    path: /home/{{ user.name }}/.config/sxhkd
-    state: directory
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-  tags:
-    - sxhkd
-    - sxhkdrc
+    - name: Sxhkd | Config
+      tags:
+        - config
+        - sxhkdrc
+      block:
+        - name: Sxhkd | Config | Create dir
+          file:
+            path: /home/{{ user.name }}/.config/sxhkd
+            state: directory
+            owner: "{{ user.name }}"
+            group: "{{ user.group }}"
 
-- name: Push sxhkdrc
-  copy:
-    src: rc/sxhkdrc
-    dest: /home/{{ user.name }}/.config/sxhkd/sxhkdrc
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-  tags:
-    - sxhkd
-    - sxhkdrc
+        - name: Sxhkd | Config | Push
+          copy:
+            src: rc/sxhkdrc
+            dest: /home/{{ user.name }}/.config/sxhkd/sxhkdrc
+            owner: "{{ user.name }}"
+            group: "{{ user.group }}"
+
+    - name: Sxhkd | Service
+      tags:
+        - systemd
+      block:
+        - name: Sxhkd | Service | Create
+          copy: 
+            src: service/sxhkd.service
+            dest: /etc/systemd/user/sxhkd.service
+          notify:
+            - reload systemd config
+
+        - name: Sxhkd | Service | (Auto) Start
+          become_user: "{{ user.name }}"
+          become: yes
+          environment:
+            XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+          systemd:
+            name: sxhkd
+            state: reloaded 
+            enabled: yes
+            scope: user
