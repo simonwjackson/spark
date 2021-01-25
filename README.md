@@ -2,8 +2,8 @@
 
 Spark is an [Ansible][1] playbook meant to provision a personal machine running
 [Arch Linux][2]. It is intended to run locally on a fresh Arch install (ie,
-taking the place of any [post-installation][3]), but due to Ansible's
-idempotent nature it may also be run on top of an already configured machine.
+taking the place of any [post-installation][3]), but due to Ansible's idempotent
+nature it may also be run on top of an already configured machine.
 
 Spark assumes it will be run on a laptop and performs some configuration based
 on this assumption. This behaviour may be changed by removing the `laptop` role
@@ -12,9 +12,9 @@ from the playbook or by skipping the `laptop` tag.
 If Spark is run on either a ThinkPad or a MacBook, it will detect this and
 execute platform-specific tasks.
 
-**Note:** If you would like to try recreating all the tasks that are currently 
-included in the ansible playbook, through a VM, you would need a disk of at least 
-**16GB** in size.
+**Note:** If you would like to try recreating all the tasks that are currently
+included in the ansible playbook, through a VM, you would need a disk of at
+least **16GB** in size.
 
 ## Running
 
@@ -32,14 +32,15 @@ Run the playbook as root.
 
 When run, Ansible will prompt for the user password. This only needs to be
 provided on the first run when the user is being created. On later runs,
-providing any password -- whether the current user password or a new one --
-will have no effect.
+providing any password -- whether the current user password or a new one -- will
+have no effect.
 
 ## SSH
 
-By default, Ansible will attempt to install the private SSH key for the user. The
-key should be available at the path specified in the `ssh.user_key` variable.
-Removing this variable will cause the key installation task to be skipped.
+By default, Ansible will attempt to install the private SSH key for the user.
+The key should be available at the path specified in the `ssh.user_key`
+variable.  Removing this variable will cause the key installation task to be
+skipped.  
 
 ### SSHD
 
@@ -263,22 +264,14 @@ GnuPG keyring over the Tor network. The service is added to
 
 ## BitlBee
 
-[BitlBee][25] and [WeeChat][26] are used to provide chat services. A systemd
-service unit for BitlBee is installed, but not enabled or started by default.
-Instead, the service is added to `/etc/nmtrust/trusted_units`, causing the
-NetworkManager trusted unit dispatcher to activate the service whenever a
-connection is established to a trusted network. The service is stopped whenever
-the network goes down or a connection is established to an untrusted network.
+[BitlBee][25] and [WeeChat][26] are used to provide chat services. A systemd service unit for BitlBee is installed, but not enabled or started by default.  Instead, the service is added to `/etc/nmtrust/trusted_units`, causing the NetworkManager trusted unit dispatcher to activate the service whenever a connection is established to a trusted network. The service is stopped whenever the network goes down or a connection is established to an untrusted network.
 
 To have the service activated at boot, change the `bitlbee.run_on` variable
 from `trusted` to `all`.
 
-If the `bitlbee.run_on` variable is set to anything other than `trusted` or
-`all`, the service will never be activated.
+If the `bitlbee.run_on` variable is set to anything other than `trusted` or `all`, the service will never be activated.
 
-By default BitlBee will be configured to proxy through Tor. To disable this,
-remove the `bitlebee.torify` variable or disable Tor entirely by removing the
-`tor` variable.
+By default BitlBee will be configured to proxy through Tor. To disable this, remove the `bitlebee.torify` variable or disable Tor entirely by removing the `tor` variable.
 
 ## git-annex
 

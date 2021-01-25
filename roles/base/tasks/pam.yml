@@ -6,6 +6,8 @@
   block: 
     - file:
         path: "/home/{{ user.name }}/.pam_environment"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
         state: touch
 
     - lineinfile:
