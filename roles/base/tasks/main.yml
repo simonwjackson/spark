@@ -2,7 +2,7 @@
 - name: Secrets
   tags:
     - secrets
-  block:
+  block: 
     - name: Secrets | Create directory
       file:
         path: "{{ secrets.location }}"
@@ -20,6 +20,14 @@
         depth: 1
       become: yes
       become_user: "{{ user.name }}"
+
+    - name: Secrets | Permissions (Again)
+      block:
+        - name: Secrets | Permissions | Folders
+          command: find {{ secrets.location }} -type d -exec chmod 0700 {} \; 
+
+        - name: Secrets | Permissions | Files
+          command: find {{ secrets.location }} -type f -exec chmod 0600 {} \; 
 
 - name: Install scripts
   copy:

@@ -1,5 +1,5 @@
 secrets: 
-    repo: "https://github.com/simonwjackson/secrets"
+    repo: "git@github.com:simonwjackson/secrets"
     location: /home/{{ user.name }}/.secrets
 
 taskwarrior: |
