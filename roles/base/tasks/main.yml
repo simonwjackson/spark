@@ -47,3 +47,21 @@
 - include: pam.yml
 - include: archive.yml
 - include: filesystems.yml
+
+- name: Git
+  become: yes
+  become_user: "{{ user.name }}"
+  tags:
+    - git
+  block:
+  - name: Git | Name
+    community.general.git_config:
+      name: user.name
+      scope: global
+      value: "{{ git.name }}"
+
+  - name: Git | Email
+    community.general.git_config:
+      name: user.email
+      scope: global
+      value: "{{ git.email }}"

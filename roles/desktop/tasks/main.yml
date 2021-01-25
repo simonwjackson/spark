@@ -48,6 +48,8 @@
 
     - name: Reload bspwm
       command: bspc wm -r
+      environment:
+        BSPWM_SOCKET: /tmp/bspwm-socket
   
 - name: polybar
   tags:

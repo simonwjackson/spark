@@ -37,26 +37,35 @@
     state: present
 
 - name: Add user to video group
-  user: name={{ user.name }} groups=video append=yes
+  user:
+    name: "{{ user.name }}"
+    groups: video 
+    append: yes
   tags:
     - user
 
 - name: Install Flock
-  aur:
+  pacman:
     name: haskell-filelock
-    user: "{{ user.name }}"
+    state: present
   tags:
     - flock
 
-- name: Install x11vnc
-  aur:
-    name:
-      - x11vnc-git 
-      - libvncserver-git
-    user: "{{ user.name }}"
+- name: x11vnc
   tags:
     - x11vnc
-    - video
+  block:
+    - name: x11vnc | Install libvncserver
+      aur:
+        name: 
+          - libvncserver-git
+        user: "{{ user.name }}" 
+
+    - name: x11vnc | Install
+      aur:
+        name: 
+          - x11vnc-git
+        user: "{{ user.name }}"
 
 - name: Push virtual desktop setup
   template:

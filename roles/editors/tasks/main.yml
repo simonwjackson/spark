@@ -5,25 +5,34 @@
     state: present
 
 - name: Neovim 
+  tags:
+    - neovim
   block: 
-    - name: Push nvim config
+    - name: Neovim | Push config
       copy:
         src: rc/nvim
         dest: /home/{{ user.name }}/.config
         mode: preserve 
         owner: "{{ user.name }}"
         group: "{{ user.group }}"   
-      tags:
-        - neovim
 
-    - name: Install vim-plug-git
+    - name: Neovim | Install vim-plug-git
       aur:
         name: vim-plug-git
         user: "{{ user.name }}"
 
-    - name: Install neovim python support
+    - name: Neovim | Install python support
       pip:
         name: neovim
         state: latest
-      tags:
-        - neovim
+
+    - name: Neovim | Install npm
+      pacman:
+        name: npm
+        state: present
+
+    - name: Neovim | Install plugins
+      become: yes
+      become_user: "{{ user.name }}"
+      shell: nvim +PlugInstall +qall --headless
+      
