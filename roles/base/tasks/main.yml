@@ -1,15 +1,25 @@
 ---
-- name: Clone secrets repo
+- name: Secrets
   tags:
     - secrets
-  git:
-    repo: "{{ secrets.repo }}"
-    dest: /home/{{ user.name }}/.secrets
-    accept_hostkey: yes
-    update: yes
-    depth: 1
-  become: yes
-  become_user: "{{ user.name }}"
+  block:
+    - name: Secrets | Create directory
+      file:
+        path: "{{ secrets.location }}"
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0700'
+
+    - name: Clone secrets repo
+      git:
+        repo: "{{ secrets.repo }}"
+        dest: "{{ secrets.location }}"
+        accept_hostkey: yes
+        update: yes
+        depth: 1
+      become: yes
+      become_user: "{{ user.name }}"
 
 - name: Install scripts
   copy:

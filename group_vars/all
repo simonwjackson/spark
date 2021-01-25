@@ -1,5 +1,13 @@
 secrets: 
     repo: "https://github.com/simonwjackson/secrets"
+    location: /home/{{ user.name }}/.secrets
+
+taskwarrior: |
+    taskd.server=freecinc.com:53589
+    taskd.key=\/home\/simonwjackson\/.secrets\/taskwarrior\/freecinc_7de71510.key.pem
+    taskd.certificate=\/home\/simonwjackson\/.secrets\/taskwarrior\/freecinc_7de71510.cert.pem
+    taskd.ca=\/home\/simonwjackson\/.secrets\/taskwarrior\/freecinc_7de71510.ca.pem
+    taskd.credentials=FreeCinc\/freecinc_7de71510\/a5b8546f-d013-4b2c-b60f-62de3397f7c7
 
 user:
     name: simonwjackson
@@ -328,6 +336,7 @@ env:
     SHELL: zsh
     TZ: "America/Chicago"
     LANG: "en_US.utf8"
+    TASKRC: "$HOME/.config/taskwarrior/taskrc"
     LC_CTYPE: "en_US.UTF-8"
     LC_NUMERIC: "en_US.UTF-8"
     LC_TIME: "en_US.UTF-8"

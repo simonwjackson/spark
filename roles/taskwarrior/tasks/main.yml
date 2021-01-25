@@ -1,16 +1,26 @@
 ---
-- name: Install taskwarrior
-  pacman: name=task state=present
+- name: Install
+  block:
+    - name: Install | taskwarrior
+      pacman: name=task state=present
 
-- name: Install timewarrior
-  pacman: name=timew state=present
-  notify:
-    - refresh holidays
+    - name: Install | timewarrior
+      pacman: name=timew state=present
+      notify:
+        - refresh holidays
 
-- name: Install taskopen
-  aur: name=taskopen user={{ user.name }}
-  tags:
-    - aur
+    - name: Install | taskopen
+      aur: name=taskopen user={{ user.name }}
+      tags:
+        - aur
+
+    # Needed for taskwiki
+    - name: Install | tasklib
+      pip:
+        name: tasklib
+        state: latest
+      tags:
+        - tasklib
 
 - name: Install scripts
   copy:
@@ -18,12 +28,18 @@
     dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
     mode: 0755 
   with_fileglob:
-    - files/bin/*
+    - files/bin/* 
 
-# Needed for taskwiki
-- name: Install tasklib
-  pip:
-    name: tasklib
-    state: latest
-  tags:
-    - tasklib
+- name: Config
+  block:
+    - name: Config | Directory
+      file:
+        path: /home/{{ user.name }}/.config/taskwarrior
+        state: directory 
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Config | rc
+      template: 
+        src: taskrc.j2
+        dest: /home/{{ user.name }}/.config/taskwarrior/taskrc
