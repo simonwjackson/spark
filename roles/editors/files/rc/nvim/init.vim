@@ -29,9 +29,9 @@ Plug 'lifepillar/vim-solarized8'
 "  - Syntax
 " ----------------------------------------------------
 
-" Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
+Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
 Plug 'ekalinin/dockerfile.vim'
-" Plug 'wgwoods/vim-systemd-syntax'
+Plug 'wgwoods/vim-systemd-syntax'
 Plug 'tpope/vim-git'
 Plug 'stephpy/vim-yaml'
 
@@ -2205,73 +2205,6 @@ inoremap jk <Esc>
 inoremap kj <Esc>
 nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
 
-
-" ----------------------------------------------------------------------------
-"  - Conceal
-" ----------------------------------------------------------------------------
-
-" For conceal markers.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=niv
-" endif
-"
-"
-" function! ToggleConcealLevel()
-"   if &conceallevel == 0
-"     setlocal conceallevel=2
-"   else
-"     setlocal conceallevel=0
-"   endif
-" endfunction
-"
-" nnoremap <silent> <C-c><C-y> :call ToggleConcealLevel()<CR>
-"
-" syn match HateWord /hate/ conceal cchar=!
-" autocmd BufEnter,BufWritePost *.js syntax match equals '=' conceal cchar=
-" autocmd BufEnter,BufWritePost *.js syntax match equals 'pipe(' conceal cchar=ﲖ
-" let g:javascript_conceal_function             = "ƒ"
-" let g:javascript_conceal_null                 = "ø"
-" let g:javascript_conceal_this                 = "@"
-" let g:javascript_conceal_return               = "⇚"
-" let g:javascript_conceal_undefined            = "¿"
-" let g:javascript_conceal_NaN                  = "ℕ"
-" let g:javascript_conceal_prototype            = "¶"
-" let g:javascript_conceal_static               = "•"
-" let g:javascript_conceal_super                = "Ω"
-" let g:javascript_conceal_arrow_function       = "⇒"
-" let g:javascript_conceal_noarg_arrow_function = "🞅"
-" let g:javascript_conceal_underscore_arrow_function = "🞅"
-
-" autocmd BufEnter,BufWritePost * syntax match fatArrow '=>' conceal cchar=ﰲ
-" autocmd BufEnter,BufWritePost * syntax match skinnyArrow '->' conceal cchar=
-" autocmd BufEnter,BufWritePost * syntax match pipe '|>' conceal cchar=ﲖ
-" autocmd BufEnter,BufWritePost * syntax match pipeDown '|>$' conceal cchar=ﲔ
-" autocmd BufEnter,BufWritePost * syntax match composeUp '<|' conceal cchar=ﲗ
-" autocmd BufEnter,BufWritePost * syntax match compose '\( \{2}\)\@<!<|' conceal cchar=ﲕ
-"
-" " autocmd BufEnter,BufWritePost *.js syntax match compose 'compose' conceal cchar=
-" " autocmd BufEnter,BufWritePost *.js syntax match pipe 'pipe' conceal cchar=ﳤ
-"
-" " autocmd BufEnter,BufWritePost *.js syntax match semi '\;' conceal cchar=
-" " autocmd BufEnter,BufWritePost *.js syntax keyword jsReturn return conceal cchar=
-" autocmd BufEnter,BufWritePost *.js syntax match parens '(' conceal cchar=(
-" autocmd BufEnter,BufWritePost *.js syntax match parens ')' conceal cchar=)
-" " autocmd BufEnter,BufWritePost *.js syntax keyword export export conceal cchar=丹
-"
-" autocmd BufEnter,BufWritePost *.js syntax match notEquals '\v\!\=' conceal cchar=≠
-" autocmd BufEnter,BufWritePost *.js syntax match lte '\v\<\=' conceal cchar=≤
-" autocmd BufEnter,BufWritePost *.js syntax match gte '\v\>\=' conceal cchar=≥
-" autocmd BufEnter,BufWritePost *.js syntax match not '\v\!' conceal cchar=¬
-"
-" " autocmd BufEnter,BufWritePost *.js syntax match undefined '\vundefined' conceal cchar=
-" " autocmd BufEnter,BufWritePost *.js syntax match null '\vnull' conceal cchar=ﳠ
-" " autocmd BufEnter,BufWritePost *.js syntax match function '\vfunction' conceal cchar=
-"
-" autocmd BufEnter,BufWritePost *.js,*.elm syntax match true 'true' conceal cchar=⊤
-" autocmd BufEnter,BufWritePost *.js,*.elm syntax match false 'false' conceal cchar=⊥
-
-
-
 function! s:VimNavigate(direction)
   try
     execute 'wincmd ' . a:direction
@@ -2315,16 +2248,15 @@ let g:vimwiki_global_ext = 0
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_links_space_char = '-'
 let g:vimwiki_autowriteall = 1
+let g:vimwiki_syntax = 'markdown'
+let g:vimwiki_ext = '.md'
+let g:vimwiki_main = 'README'
 
 let personal = {}
 let personal.path = '~/vimwiki'
 
 let guides = {}
 let guides.path = '~/guides'
-let guides.main = 'README'
-let guides.autowriteall = 1
-let guides.syntax = 'markdown'
-let guides.ext = '.md'
 
 let g:vimwiki_list = [personal,guides]
 let g:vimwiki_ext2syntax = {
