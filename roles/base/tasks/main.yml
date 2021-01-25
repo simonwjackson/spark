@@ -1,4 +1,16 @@
 ---
+- name: Clone secrets repo
+  tags:
+    - secrets
+  git:
+    repo: "{{ secrets.repo }}"
+    dest: /home/{{ user.name }}/.secrets
+    accept_hostkey: yes
+    update: yes
+    depth: 1
+  become: yes
+  become_user: "{{ user.name }}"
+
 - name: Install scripts
   copy:
     src: "{{ item }}"

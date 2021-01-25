@@ -1,3 +1,6 @@
+secrets: 
+    repo: "https://github.com/simonwjackson/secrets"
+
 user:
     name: simonwjackson
     uid: 1000

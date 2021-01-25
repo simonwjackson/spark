@@ -1,53 +1,53 @@
 ---
-- name: Install OpenSSH
-  pacman: name=openssh state=present
+- name: SSH | Install
+  block: 
+    - name: SSH | Install | OpenSSH
+      pacman: name=openssh state=present
 
-- name: Push OpenSSH daemon configuration file
-  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config
+    - name: SSH | Install | sshfs
+      pacman: name=sshfs state=present
 
-- name: Create OpenSSH systemd unit file directory
-  file: path=/etc/systemd/system/sshd.socket.d state=directory
+    - name: SSH | Install | autossh
+      pacman: name=autossh state=present
 
-- name: Push OpenSSH socket unit file
-  template: src=sshd-socket-override.conf.j2 dest=/etc/systemd/system/sshd.socket.d/override.conf
-  notify:
-    - reload systemd config
-    - restart sshd
+    - name: SSH | Install | Mosh
+      aur: 
+        name: mosh-git
+        user: "{{ user.name }}"
 
-- name: Enable and start OpenSSH
-  service: name=sshd.socket enabled=yes state=started
-  when: ssh.enable_sshd is defined and ssh.enable_sshd == True
+# - name: Push OpenSSH daemon configuration file
+#   template: src=sshd_config.j2 dest=/etc/ssh/sshd_config
 
-- name: Disable and stop OpenSSH
-  service: name=sshd.socket enabled=no state=stopped
-  when: ssh.enable_sshd is defined and ssh.enable_sshd == True
+# - name: Copy fuse configuration file
+#   copy: src=fuse.conf dest=/etc/fuse.conf
 
-- name: Install sshfs
-  pacman: name=sshfs state=present
-
-- name: Install autossh
-  pacman: name=autossh state=present
-
-- name: Copy fuse configuration file
-  copy: src=fuse.conf dest=/etc/fuse.conf
-
-- name: Install keychain
-  pacman: name=keychain state=present
-
-- name: Install x11-ask-pass
-  pacman: name=x11-ssh-askpass state=present
-
-- name: Export SSH_ASKPASS environment variable
-  lineinfile: dest=/etc/profile
-              state=present
-              line="export SSH_ASKPASS=\"/usr/lib/ssh/x11-ssh-askpass\""
+# - name: Install keychain
+#   pacman: name=keychain state=present
 
 - name: Make directory for user SSH key
-  file: path=/home/{{ user.name }}/.ssh state=directory owner={{ user.name }} group={{ user.group }}
+  file:
+    path: /home/{{ user.name }}/.ssh 
+    state: directory 
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
 
-- name: Install user SSH key
-  copy: src={{ ssh.user_key }} dest=/home/{{ user.name }}/.ssh/id_rsa mode=600 owner={{ user.name }} group={{ user.group }}
-  when: ssh.user_key is defined
+- name: SSH | Config
+  block:
+    - name: SSH | Config | Touch
+      file:
+        path: /home/{{ user.name }}/.ssh/config
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        access_time: preserve
+        modification_time: preserve
+        state: touch
 
-- name: Install Mosh
-  pacman: name=mosh state=present
+    - name: SSH | Config | Use ~/.secrets
+      blockinfile:
+        path: /home/{{ user.name }}/.ssh/config
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        block: |
+          host *
+            IdentityFile ~/.secrets/ssh/id_rsa
+
