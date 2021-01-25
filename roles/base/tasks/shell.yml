@@ -8,18 +8,25 @@
   tags:
     - shell
 
-- name: Push zshrc
-  copy:
-    src: rc/zshrc
-    dest: /home/{{ user.name }}/.zshrc
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
+- name: zshrc
   tags:
     - shell
     - zsh
     - zshrc
     - rc
     - config
+  block:
+  - name: zshrc | Push 
+    copy:
+      src: rc/zshrc
+      dest: /home/{{ user.name }}/.zshrc
+      owner: "{{ user.name }}"
+      group: "{{ user.group }}"
+
+  - name: zshrc | Spaceship
+    aur:
+      name: spaceship-prompt-git
+      user: "{{ user.name }}"
 
 - name: Set zsh as default shell
   user: 
