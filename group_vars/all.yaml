@@ -347,7 +347,7 @@ env:
     SHELL: zsh
     TZ: "America/Chicago"
     LANG: "en_US.utf8"
-    TASKRC: "$HOME/.config/taskwarrior/taskrc"
+    TASKRC: "/home/simonwjackson/.config/taskwarrior/taskrc"
     LC_CTYPE: "en_US.UTF-8"
     LC_NUMERIC: "en_US.UTF-8"
     LC_TIME: "en_US.UTF-8"

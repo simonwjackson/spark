@@ -69,7 +69,7 @@
 #    - kernelparams
 
 - include: shell.yml
-#- include: user.yml
+- include: user.yml
 - include: sudo.yml
 - include: packages.yml
 - include: journal.yml
@@ -84,14 +84,14 @@
   tags:
     - git
   block:
-  - name: Git | Name
-    community.general.git_config:
-      name: user.name
-      scope: global
-      value: "{{ git.name }}"
+    - name: Git | Name
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "{{ git.name }}"
 
-  - name: Git | Email
-    community.general.git_config:
-      name: user.email
-      scope: global
-      value: "{{ git.email }}"
+    - name: Git | Email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: "{{ git.email }}"

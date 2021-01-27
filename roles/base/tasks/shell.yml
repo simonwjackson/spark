@@ -27,8 +27,3 @@
     aur:
       name: spaceship-prompt-git
       user: "{{ user.name }}"
-
-- name: Set zsh as default shell
-  user: 
-    name: "{{ user.name }}"
-    shell: /usr/bin/zsh

@@ -26,7 +26,7 @@ case "$1" in
 		| jq -r '.ids.youtube' \
 		| internet-album \
 		| tr '\n' ' ' \
-    | xargs mpv-rpc --audio
+    | xargs mpv-rpc --audi
 		break
 	;; 
 	toggle) 

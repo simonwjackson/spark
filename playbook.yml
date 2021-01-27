@@ -4,7 +4,6 @@
   roles:
     - { role: base, tags: ['base'] }
     - { role: ssh, tags: ['ssh'] }
-    - { role: blacklist, tags: ['blacklist'] }
     - { role: editors, tags: ['editors'] }
     - { role: cron, tags: ['cron'] }
     - { role: x, tags: ['x'] }
@@ -15,3 +14,4 @@
     - { role: redshift, tags: ['redshift'] }
     - { role: sound, tags: ['sound'] }
     - { role: ripgrep, tags: ['ripgrep'] }
+    - { role: blacklist, tags: ['blacklist'] }

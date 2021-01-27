@@ -2,7 +2,8 @@
 
 # setup-monitors setup &
 
-monitors=(DP1-8 HDMI2)
+# monitors=(DP1-8 HDMI2)
+monitors=(eDP1)
 
 for i in "${monitors[@]}"
 do
@@ -11,9 +12,10 @@ do
 done
 
 
-bspc monitor DP1-8 -d I II III
+bspc monitor eDP1 -d I II III
+# bspc monitor DP1-8 -d I II III
 # bspc monitor VIRTUAL1 -d V
-bspc monitor HDMI2 -d VII VIII IX
+# bspc monitor HDMI2 -d VII VIII IX
 
 # pgrep x11vnc || setup-monitors serve &
 
