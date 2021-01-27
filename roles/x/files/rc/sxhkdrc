@@ -1,6 +1,6 @@
 # new term
 super + {_, alt +} Return
-  {kitty, term-float --spawn} tmux new-session
+  {kitty, term-float} tmux new-session
 
 # kill focused window
 super + x
@@ -8,7 +8,7 @@ super + x
 
 # start window switcher
 super + t
-  term-float --spawn window-switch
+  term-float window-switch
 
 # Lock screen
 super + alt + ctrl + l
@@ -16,14 +16,14 @@ super + alt + ctrl + l
 
 # Music menu
 super + p; {_, super +}s
-  term-float --spawn media-control search
+  term-float media-control search
 
 super + p; {_, super +}l
-  term-float --spawn media-control library
+  term-float media-control library
 
 # Pianobar
 super + p; {_, super +}p
-  term-float --spawn control-pianobar station
+  term-float control-pianobar station
 
 # Generate password
 super + r ; g ; p
@@ -35,7 +35,7 @@ super + r ; f ; f
   bt clients | awk '/ERROR/{print $3}' | xargs kill -9
 
 super + d; {_,super +} {d,a,n,t,j,r}
-  term-float --spawn tasker {_,_} {_,add,now,toggle,journal,summary}
+  term-float tasker {_,_} {_,add,now,toggle,journal,summary}
 
 XF86Audio{Play,Next,Prev}
   media-control {toggle,next,prev}
@@ -139,4 +139,4 @@ super + b; {_, super +}f
 
 # File explorer
 super + f
-  term-float --spawn lf
+  term-float  lf

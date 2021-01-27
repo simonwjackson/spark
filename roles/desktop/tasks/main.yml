@@ -1,5 +1,7 @@
 ---
 - name: Install scripts
+  tags:
+    - bin
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item | basename | splitext | first }}"

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-setup-monitors setup &
+# setup-monitors setup &
 
 monitors=(DP1-8 HDMI2)
 
@@ -12,27 +12,31 @@ done
 
 
 bspc monitor DP1-8 -d I II III
-bspc monitor VIRTUAL1 -d V
+# bspc monitor VIRTUAL1 -d V
 bspc monitor HDMI2 -d VII VIII IX
 
-pgrep x11vnc || setup-monitors serve &
+# pgrep x11vnc || setup-monitors serve &
 
-bspc config border_width         1
-bspc config window_gap          12
+bspc config border_width          1
+bspc config window_gap            12
 
 bspc config split_ratio           0.52
-bspc config borderless_monocle true
-bspc config single_monocle true
-bspc config gapless_monocle true
+bspc config borderless_monocle    true
+bspc config single_monocle        true
+bspc config gapless_monocle       true
 bspc config focus_follows_pointer true
+
+bspc config active_border_color '#000000'
+bspc config normal_border_color '#000000'
+bspc config focused_border_color '#222222'
 
 bspc rule -a '*:floating term' state=floating follow=on focus=on
 bspc rule -a Gimp desktop='^9' state=floating follow=on
-bspc rule -a mpv state=floating
+# bspc rule -a mpv state=floating
 
 
 # Autostart applications
-bspc desktop --focus V && alacritty &
+# bspc desktop --focus V && alacritty &
 pgrep bspswallow || bspswallow &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 pgrep clipit || clipit &

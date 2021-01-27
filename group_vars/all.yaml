@@ -2,6 +2,9 @@ secrets:
     repo: "git@github.com:simonwjackson/secrets"
     location: /home/{{ user.name }}/.secrets
 
+device:
+  battery: true
+
 taskwarrior: |
     taskd.server=freecinc.com:53589
     taskd.key=\/home\/simonwjackson\/.secrets\/taskwarrior\/freecinc_7de71510.key.pem
@@ -102,6 +105,7 @@ base_packages:
     - tig
     - python-pip
     - bluez-utils
+    - xterm
 
 filesystem_packages:
     - dosfstools

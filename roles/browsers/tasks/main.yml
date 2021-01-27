@@ -1,38 +1,88 @@
----
-- name: Install w3m
-  pacman:
-    name: w3m
-    state: present
+--- 
+- name: Install
+  block: 
+    - name: Install | w3m
+      pacman:
+        name: w3m
+        state: present
 
-- name: Install Firefox
-  pacman:
-    name: firefox
-    state: present
-  tags:
-    - firefox
+    - name: Install | Firefox
+      pacman:
+        name: firefox
+        state: present
+      tags:
+        - firefox
 
-- name: Install brotabs
-  pip:
-    name: brotab
-    state: latest
-  tags:
-    - brotabs
+    - name: Install | Chromium
+      pacman:
+        name: chromium
+        state: present
+      tags:
+        - chromium
 
-- name: Push all-tabs script
+- name: Install | scripts
   copy:
-    src: all-tabs.sh
-    dest: /usr/local/bin/all-tabs
-    mode: 0755
-  tags:
-    - fzf
-    - alltabs
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob: 
+    - files/bin/*
 
-- name: Install Chromium
-  pacman:
-    name: chromium
-    state: present
+- name: qutebrowser
   tags:
-    - chromium
+    - qutebrowser
+  block:
+    - name: qutebrowser | Install
+      aur:
+        name: qutebrowser-git
+        user: "{{ user.name }}" 
+      aur:
+        name: qutebrowser-git
+        user: "{{ user.name }}" 
+
+    - name: Config | Directory
+      file:
+        path: /home/{{ user.name }}/.config/qutebrowser
+        state: directory 
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Config | rc
+      copy: 
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        src: rc/qutebrowser
+        dest: /home/{{ user.name }}/.config/qutebrowser/config.py
+
+    - name: Config | Directory
+      file:
+        path: "/usr/share/qutebrowser"
+        state: directory 
+
+    - name: Install | userscripts
+      copy:
+        src: "{{ item }}"
+        dest: "/usr/share/qutebrowser/userscripts/{{ item | basename | splitext | first }}"
+        mode: 0755 
+      with_fileglob: 
+        - files/share/qutebrowser/userscripts/* 
+
+# - name: Install brotabs
+#   pip:
+#     name: brotab
+#     state: latest
+#   tags:
+#     - brotabs
+
+# - name: Push all-tabs script
+#   copy:
+#     src: all-tabs.sh
+#     dest: /usr/local/bin/all-tabs
+#     mode: 0755
+#   tags:
+#     - fzf
+#     - alltabs
+
 
 # - name: Push rofi browser chooser
 #   template:

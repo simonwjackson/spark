@@ -22,11 +22,11 @@ case "$1" in
 	;; 
   search)
 	  shift
-    muzik search $@\
+    muzik search $@ \
 		| jq -r '.ids.youtube' \
 		| internet-album \
 		| tr '\n' ' ' \
-		| xargs mpv-rpc --audio 
+    | xargs mpv-rpc --audio
 		break
 	;; 
 	toggle) 
