@@ -206,7 +206,8 @@ Plug 'tools-life/taskwiki'
 Plug 'blindFS/vim-taskwarrior'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-Plug 'ZhiyuanLck/vim-lf'
+"Plug 'ZhiyuanLck/vim-lf'
+Plug 'rbgrouleff/bclose.vim' | Plug 'ptzz/lf.vim'
 
 call plug#end()
 
@@ -1964,18 +1965,6 @@ let g:fzf_preview_use_dev_icons = 1
 
 
 
-" ----------------------------------------------------------------------------
-"  - Ranger
-" ----------------------------------------------------------------------------
-" TODO: Refactor SmartRanger()
-function! SmartRanger()
-  if @% == ""
-    silent! execute "!tmux popup -x C -y C -w '80\\%' -h '50\\%' -R 'NVFILE=`mktemp` && lf ".getcwd()." && nvr --nostart --servername ".v:servername." --remote $(cat ${NVFILE})' -K &"
-  else
-    silent! execute "!tmux popup -x C -y C -w '80\\%' -h '50\\%' -R 'NVFILE=`mktemp` && lf && nvr --nostart --servername ".v:servername." --remote $(cat ${NVFILE})' -K &"
-  endif
-endfun
-
 " Quickly quit help
 augroup easyquit
   autocmd!
@@ -2153,7 +2142,7 @@ vnoremap <S-Tab> <<<Esc>gv
 nnoremap <silent> <F6>      :FzfPreviewGitActions<CR>
 nnoremap <silent> <F7>      :FzfPreviewProjectFiles<CR>
 nnoremap <silent> <F8>      :FzfPreviewBuffers<CR>
-nnoremap <silent> <F9>      :call SmartRanger()<CR>
+nnoremap <silent> <F9>      :Lf<CR>
 nnoremap <silent> <F10>     :FzfPreviewOldFiles<CR>
 
 " Finding code

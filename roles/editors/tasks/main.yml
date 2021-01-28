@@ -6,7 +6,10 @@
 
 - name: Neovim 
   tags:
-    - neovim
+    - vimrc 
+    - nvimrc 
+    - neovimrc 
+    - rc 
   block: 
     - name: Neovim | Push config
       copy:

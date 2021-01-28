@@ -1,0 +1,37 @@
+---
+- name: Install scripts
+  tags:
+    - bin
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+
+- name: Install
+  block:
+    - name: Install
+      aur:
+        name: kitty-git
+        user: "{{ user.name }}"
+
+- name: Config
+  tags:
+    - kitty
+    - kittyrc
+    - rc
+  block: 
+    - name: Config | Directory
+      file:
+        path: /home/{{ user.name }}/.config/kitty
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Config | Push
+      copy: 
+        src: rc/kitty.conf
+        dest: /home/{{ user.name }}/.config/kitty/kitty.conf
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"

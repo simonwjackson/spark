@@ -7,10 +7,14 @@
     - { role: editors, tags: ['editors'] }
     - { role: cron, tags: ['cron'] }
     - { role: x, tags: ['x'] }
+
+    - { role: lf, tags: ['lf'] }
+    - { role: kitty, tags: ['kitty'] }
+    - { role: taskwarrior, tags: ['taskwarrior'] }
+
     - { role: desktop, tags: ['desktop'] }
     - { role: browsers, tags: ['browsers'] }
     - { role: playback, tags: ['playback'] }
-    - { role: taskwarrior, tags: ['taskwarrior'] }
     - { role: redshift, tags: ['redshift'] }
     - { role: sound, tags: ['sound'] }
     - { role: ripgrep, tags: ['ripgrep'] }

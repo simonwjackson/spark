@@ -36,9 +36,10 @@
       aur:
         name: qutebrowser-git
         user: "{{ user.name }}" 
-      aur:
-        name: qutebrowser-git
-        user: "{{ user.name }}" 
+
+    - name: qutebrowser | Install
+      pip:
+        name: adblock
 
     - name: Config | Directory
       file:

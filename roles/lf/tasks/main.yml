@@ -1,0 +1,37 @@
+---
+- name: Install scripts
+  tags:
+    - bin
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+
+- name: Install
+  block:
+    - name: Install
+      aur:
+        name: lf-git
+        user: "{{ user.name }}"
+
+- name: Config
+  tags:
+    - lf
+    - rc
+    - lfrc
+  block: 
+    - name: Config | Directory
+      file:
+        path: /home/{{ user.name }}/.config/lf
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Config | Push
+      copy: 
+        src: rc/lfrc
+        dest: /home/{{ user.name }}/.config/lf/lfrc
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"

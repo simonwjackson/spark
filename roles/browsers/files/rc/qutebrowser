@@ -21,9 +21,14 @@ config.set('colors.tabs.indicator.stop', '#00000000')
 
 config.set('tabs.favicons.show', 'pinned')
 config.set('statusbar.show', 'in-mode')
+config.set('auto_save.session', True)
 
 config.bind(' bu', 'spawn --userscript qutewarden user')
 config.bind(' bp', 'spawn --userscript qutewarden pass')
 config.bind(' bb', 'spawn --userscript qutewarden both')
+
+config.set('url.searchengines', {
+    "DEFAULT": "https://www.google.com.ar/search?q={}"
+})
 
 config.set('content.headers.user_agent', "Mozilla/5.0 (Linux; Android 10; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36")
