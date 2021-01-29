@@ -1,0 +1,16 @@
+---
+xorg: 
+  dpi: 96
+
+bspwm:
+  monitors:
+    - name: DP1-8
+      desktops: 
+        - I
+        - II 
+        - III
+    - name: HDMI2
+      desktops: 
+        - VII
+        - VIII
+        - IX

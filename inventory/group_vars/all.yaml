@@ -2,9 +2,6 @@ secrets:
     repo: "git@github.com:simonwjackson/secrets"
     location: /home/{{ user.name }}/.secrets
 
-device:
-  battery: true
-
 taskwarrior: |
     taskd.server=freecinc.com:53589
     taskd.key=\/home\/simonwjackson\/.secrets\/taskwarrior\/freecinc_7de71510.key.pem
@@ -13,8 +10,8 @@ taskwarrior: |
     taskd.credentials=FreeCinc\/freecinc_7de71510\/a5b8546f-d013-4b2c-b60f-62de3397f7c7
 
 user:
-    name: simonwjackson
     uid: 1000
+    name: simonwjackson
     group: simonwjackson
     shell: /usr/bin/zsh
     email: hello@simonwjackson.io
@@ -173,19 +170,6 @@ unbound:
 bluetooth:
     disable: False
 
-firejail:
-    blacklist:
-        - ~/.calendars
-        - ~/.config/vdirsyncer
-        - ~/.contacts
-        - ~/.keys
-        - ~/.mbsyncrc
-        - ~/.offlineimap
-        - ~/.offlineimaprc
-        - ~/.password-store
-        - ~/.vdirsyncer
-        - ~/library
-
 cryptshot:
     - name: alta
       uuid: 0a0db776-84c5-48e1-9079-cacfbc5de8a3
@@ -228,65 +212,13 @@ udisks:
 hostsctl:
     url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
-himawaripy:
-    run_time: 15min
-    run_boot_delay: 2min
-    run_on: never
-    flags: --auto-offset --level 4
-
 goesimage:
     run_time: 15min
     run_boot_delay: 2min
     run_on: trusted
-    flags: -w -e
-
-libinput:
-    middle_click_scroll: 12
-    button_mapping: "1 2 3 4 5 6 7 8 9 10 11 2"
-
-display_manager: lightdm
-gdm:
-    sound: False
-    font_scaling_factor: 1
-    logo_path: False
-    touchpad:
-        tap_to_click: True
-    accessibility_menu: True
+    flags: -w -e 
 
 desktop_environment: bspwm
-gnome:
-    night_light:
-        enabled: True
-        color_temperature: 4000 # in Kelvin
-    date_time:
-        show_date_in_clock: True
-        show_weeks_in_calendar: True
-    battery:
-        show_percentage: True
-    power:
-        sleep_timeout_when_computer_on_ac: 3600 # in seconds
-        timeout_action_when_computer_on_ac: suspend
-        sleep_timeout_when_computer_on_battery: 1800 # in seconds
-        timeout_action_when_computer_on_battery: suspend
-        power_button_action: suspend
-    touchpad:
-        tap_to_click: True
-        natural_scrolling: True
-        disabled_while_typing: True
-    online_accounts_support: True
-    lock_screen:
-        automatic_lock: True
-        lock_screen_after_blank_for: 0 # in seconds
-        show_notifications: True
-        show_full_name_of_user: True
-    theme:
-        theme_name: Adwaita
-        icon_theme_name: Adwaita
-        font_name: Dejavu Sans 13
-        dark_variant: True
-    gnome_shell:
-        disable_top_left_hot_corner: False
-        extensions_support: True
 
 base_fonts:
     - adobe-source-code-pro-fonts
@@ -335,19 +267,34 @@ hardened:
 
 kernel_parameters: "quiet consoleblank=60"
 
-env:
-  pam:
-    QT_AUTO_SCREEN_SCALE_FACTOR: 0 
-    QT_SCALE_FACTOR: 1.5
-    TERM: xterm-256color
+profile: 
+  umask: '022'
+  path: 
+    - /usr/local/sbin
+    - /usr/local/bin
+    - /usr/bin/core_perl
+    - /usr/bin
+    - "$HOME/.bin"
+  exports: 
+    XDG_DATA_HOME: "/home/{{ user.name }}"
+    XDG_CONFIG_HOME: "/home/{{ user.name }}/.config"
+    XDG_CONFIG_DIRS: "/usr/etc/xdg:/etc/xdg"
+    BROWSER: qutebrowser
     TERMINAL: kitty
+    TERM: xterm-256color
     EDITOR: nvim
     VISUAL: nvim
     PAGER: less
-    SHELL: zsh
+  unset:
+    # Termcap is outdated, old, and crusty, kill it.
+    - TERMCAP
+    # Man is much better than us at figuring this out
+    - MANPATH
+
+env:
+  pam:
     TZ: "America/Chicago"
     LANG: "en_US.utf8"
-    TASKRC: "/home/simonwjackson/.config/taskwarrior/taskrc"
     LC_CTYPE: "en_US.UTF-8"
     LC_NUMERIC: "en_US.UTF-8"
     LC_TIME: "en_US.UTF-8"
@@ -361,3 +308,7 @@ env:
     LC_MEASUREMENT: "en_US.UTF-8"
     LC_IDENTIFICATION: "en_US.UTF-8"
     LC_ALL: ""
+
+qutebrowser:
+  greasemonkey:
+    - "https://greasyfork.org/scripts/386925-youtube-ad-cleaner-include-non-skippable-ads-works/code/Youtube Ad Cleaner(Include Non-Skippable Ads- works).user.js"

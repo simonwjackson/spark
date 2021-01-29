@@ -2,20 +2,13 @@
 
 # setup-monitors setup &
 
-# monitors=(DP1-8 HDMI2)
-monitors=(eDP1)
+# BEGIN Monitors
+# -- Ansible placeholder
+# END Monitors
 
-for i in "${monitors[@]}"
-do
-   : 
-   MONITOR=$i polybar --reload example &
-done
-
-
-bspc monitor eDP1 -d I II III
-# bspc monitor DP1-8 -d I II III
-# bspc monitor VIRTUAL1 -d V
-# bspc monitor HDMI2 -d VII VIII IX
+# BEGIN Desktops
+# -- Ansible placeholder
+# END Desktops
 
 # pgrep x11vnc || setup-monitors serve &
 
@@ -39,6 +32,8 @@ bspc rule -a Gimp desktop='^9' state=floating follow=on
 
 # Autostart applications
 # bspc desktop --focus V && alacritty &
+unclutter --hide-on-touch &
+xbanish &
 pgrep bspswallow || bspswallow &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 pgrep clipit || clipit &

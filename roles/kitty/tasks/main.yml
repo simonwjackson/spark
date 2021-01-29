@@ -14,7 +14,7 @@
     - name: Install
       aur:
         name: kitty-git
-        user: "{{ user.name }}"
+        user: "{{ user.name }}" 
 
 - name: Config
   tags:
@@ -24,7 +24,7 @@
   block: 
     - name: Config | Directory
       file:
-        path: /home/{{ user.name }}/.config/kitty
+        path: "{{ profile.exports.XDG_CONFIG_HOME }}/kitty"
         state: directory
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -32,6 +32,6 @@
     - name: Config | Push
       copy: 
         src: rc/kitty.conf
-        dest: /home/{{ user.name }}/.config/kitty/kitty.conf
+        dest: "{{ profile.exports.XDG_CONFIG_HOME }}/kitty/kitty.conf"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
