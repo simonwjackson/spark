@@ -1,0 +1,11 @@
+---
+xorg: 
+  dpi: 136
+
+bspwm:
+  monitors:
+    - name: eDP1
+      desktops: 
+        - I
+        - II 
+        - III

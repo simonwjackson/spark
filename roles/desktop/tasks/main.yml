@@ -39,6 +39,8 @@
     - bspwm
     - bspwmrc
     - config
+  vars:
+    BSPWM_SOCKET: /tmp/bspwm-socket
   block: 
     - name: Push bspwm config
       copy:
@@ -48,10 +50,32 @@
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
 
+    - name: Monitors
+      blockinfile:
+        path: /home/{{ user.name }}/.config/bspwm/bspwmrc
+        marker: "# {mark} Monitors"
+        block: |
+          MONITOR={{ item.name }} polybar --reload example &
+      loop: "{{ bspwm.monitors }}"
+
+    - name: Desktops
+      blockinfile:
+        path: /home/{{ user.name }}/.config/bspwm/bspwmrc
+        marker: "# {mark} Desktops"
+        block: |
+          bspc monitor {{ item.name }} -d {{ item.desktops | join(' ')}}
+      loop: "{{ bspwm.monitors }}"
+
+    - name: set BSPWM_SOCKET
+      lineinfile:
+        dest: /home/{{ user.name }}/.profile
+        regexp: '^\s*export BSPWM_SOCKET='
+        line: 'export BSPWM_SOCKET="{{ BSPWM_SOCKET }}"'
+
     - name: Reload bspwm
       command: bspc wm -r
       environment:
-        BSPWM_SOCKET: /tmp/bspwm-socket
+        BSPWM_SOCKET: "{{ BSPWM_SOCKET }}"
   
 - name: polybar
   tags:

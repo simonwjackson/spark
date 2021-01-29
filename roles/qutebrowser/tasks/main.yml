@@ -1,0 +1,58 @@
+--- 
+- name: qutebrowser
+  tags:
+    - qutebrowser
+  block:
+    - name: scripts
+      copy:
+        src: "{{ item }}"
+        dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+        mode: 0755 
+      with_fileglob: 
+        - files/bin/*
+
+    - name: Install
+      aur:
+        name: qutebrowser-git
+        user: "{{ user.name }}" 
+
+    - name: adblock
+      pip:
+        name: adblock
+
+    - name: set BROWSER
+      lineinfile:
+        dest: /home/{{ user.name }}/.profile
+        regexp: '^\s*export BROWSER='
+        line: 'export BROWSER="$(which qutebrowser)"' 
+     
+    - name: Config
+      block:
+        - name: Config | Directory
+          file:
+            path: /home/{{ user.name }}/.config/qutebrowser
+            state: directory 
+            owner: "{{ user.name }}"
+            group: "{{ user.group }}"
+
+        - name: Config | rc
+          copy: 
+            owner: "{{ user.name }}"
+            group: "{{ user.group }}"
+            src: rc/qutebrowser
+            dest: /home/{{ user.name }}/.config/qutebrowser/config.py
+
+    - name: Userscripts
+      block:
+        - name: Userscripts | directory
+          file:
+            path: "/usr/share/qutebrowser/userscripts"
+            state: directory 
+
+        - name: Userscripts | Install 
+          copy:
+            src: "{{ item }}"
+            dest: "/usr/share/qutebrowser/userscripts/{{ item | basename | splitext | first }}"
+            mode: 0755 
+          with_fileglob: 
+            - files/share/qutebrowser/userscripts/* 

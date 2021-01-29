@@ -1,0 +1,17 @@
+---
+- name: Install
+  aur:
+    name: bitwarden-cli
+    user: "{{ user.name }}" 
+
+- name: Install dependencies
+  pip:
+    name:
+      - tldextract
+      - pyperclip
+
+- name: set BW_SESSION
+  lineinfile:
+    dest: /home/{{ user.name }}/.profile
+    regexp: '^\s*export BW_SESSION='
+    line: 'export BW_SESSION="$(cat "${HOME}/.secrets/bitwarden/session")"'

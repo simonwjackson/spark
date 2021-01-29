@@ -10,7 +10,7 @@
   user:
     name: "{{ user.name }}"
     group: "{{ user.group }}"
-    password: "{{ user_password|password_hash('sha512') }}"
+    password: "{{ user_password | password_hash('sha512') }}"
     shell: "{{ user.shell }}"
     update_password: on_create
     uid: "{{ user.uid }}"
@@ -60,3 +60,37 @@
   notify: stop systemd per-user instance
   tags:
     - user
+
+- name: Profile
+  tags:
+    - profile
+  block:
+    - name: Profile | umask
+      lineinfile:
+        state: present
+        dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+        regexp: '^\s*umask\s*'
+        line: "umask {{ profile.umask }}"
+       
+    - name: Profile | paths
+      lineinfile:
+        state: present
+        dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+        regexp: '^\s*export\s*PATH='
+        line: "export PATH={{ profile.path | join(':')}}"
+
+    - name: Profile | exports
+      lineinfile:
+        state: present
+        dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+        regexp: '^\s*export\s*{{ item.key }}='
+        line: "export {{ item.key }}={{ item.value }}"
+      loop: "{{ profile.exports | dict2items }}"
+
+    - name: Profile | unset
+      lineinfile:
+        state: present
+        dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+        regexp: '^\s*unset\s*{{ item }}='
+        line: "unset {{ item }}"
+      loop: "{{ profile.unset }}"

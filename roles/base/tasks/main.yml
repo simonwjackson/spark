@@ -1,34 +1,4 @@
----
-- name: Secrets
-  tags:
-    - secrets
-  block: 
-    - name: Secrets | Create directory
-      file:
-        path: "{{ secrets.location }}"
-        state: directory
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: '0700'
-
-    - name: Clone secrets repo
-      git:
-        repo: "{{ secrets.repo }}"
-        dest: "{{ secrets.location }}"
-        accept_hostkey: yes
-        update: yes
-        depth: 1
-      become: yes
-      become_user: "{{ user.name }}"
-
-    - name: Secrets | Permissions (Again)
-      block:
-        - name: Secrets | Permissions | Folders
-          command: find {{ secrets.location }} -type d -exec chmod 0700 {} \; 
-
-        - name: Secrets | Permissions | Files
-          command: find {{ secrets.location }} -type f -exec chmod 0600 {} \; 
-
+--- 
 - name: Install scripts
   copy:
     src: "{{ item }}"

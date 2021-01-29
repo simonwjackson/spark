@@ -102,15 +102,28 @@
     - x
     - xinit
 
-- name: Push Xresources config
-  copy:
-    src: rc/Xresources
-    dest: /home/{{ user.name }}/.Xresources
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
+- name: Xresources
   tags:
-    - x
     - xresources
+    - xresourcesrc
+  block:
+    - name: Xresources | Push
+      copy:
+        src: rc/Xresources
+        dest: /home/{{ user.name }}/.Xresources
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Xresources | set vars
+      lineinfile:
+        dest: /home/{{ user.name }}/.Xresources
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: '^\s*Xft.dpi:', line: "Xft.dpi: {{ xorg.dpi }}" }
+
+    - name: Xresources | reload
+      command: xrdb -merge /home/{{ user.name }}/.Xresources
 
 - name: Push xmodmap config
   copy:

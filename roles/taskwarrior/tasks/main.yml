@@ -30,6 +30,12 @@
   with_fileglob:
     - files/bin/* 
 
+- name: set TASKRC
+  lineinfile:
+    dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+    regexp: '^\s*export TASKRC='
+    line: 'export TASKRC="{{ profile.exports.XDG_DATA_HOME }}/taskwarrior/taskrc"' 
+
 - name: Config
   block:
     - name: Config | Directory
