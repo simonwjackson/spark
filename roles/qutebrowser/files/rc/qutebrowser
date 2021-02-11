@@ -1,6 +1,6 @@
 #!/bin/env python
 
-config.load_autoconfig()
+config.load_autoconfig(False)
 
 config.set('colors.webpage.prefers_color_scheme_dark', True)
 config.set('colors.webpage.bg', 'black')
@@ -31,4 +31,4 @@ config.set('url.searchengines', {
     "DEFAULT": "https://www.google.com.ar/search?q={}"
 })
 
-config.set('content.headers.user_agent', "Mozilla/5.0 (Linux; Android 10; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36")
+config.set('content.headers.user_agent', "Mozilla/5.0 (Android 10; Mobile; rv:86.0) Gecko/86.0 Firefox/86.0")

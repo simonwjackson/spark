@@ -19,7 +19,6 @@
         group: "{{ user.group }}"
 
     - name: Clone tmux plugin manager
-      async: yes
       git:
         repo: https://github.com/tmux-plugins/tpm
         dest: /home/{{ user.name }}/.local/share/tmux/plugins/tpm

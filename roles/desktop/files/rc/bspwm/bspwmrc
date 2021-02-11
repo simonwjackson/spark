@@ -32,6 +32,8 @@ bspc rule -a Gimp desktop='^9' state=floating follow=on
 
 # Autostart applications
 # bspc desktop --focus V && alacritty &
+unclutter --hide-on-touch &
+xbanish &
 pgrep bspswallow || bspswallow &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 pgrep clipit || clipit &

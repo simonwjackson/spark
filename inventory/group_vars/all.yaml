@@ -308,3 +308,7 @@ env:
     LC_MEASUREMENT: "en_US.UTF-8"
     LC_IDENTIFICATION: "en_US.UTF-8"
     LC_ALL: ""
+
+qutebrowser:
+  greasemonkey:
+    - "https://greasyfork.org/scripts/386925-youtube-ad-cleaner-include-non-skippable-ads-works/code/Youtube Ad Cleaner(Include Non-Skippable Ads- works).user.js"
