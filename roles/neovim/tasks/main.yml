@@ -1,0 +1,45 @@
+---
+- name: Install
+  pacman:
+    name: neovim
+    state: present
+
+- name: Neovim 
+  tags:
+    - vimrc 
+    - nvimrc 
+    - neovimrc 
+    - rc 
+  block: 
+    - name: Neovim | Install python support
+      pip:
+        name: neovim
+        state: latest
+
+    - name: Neovim | Install nodejs
+      become: true
+      pacman:
+        name: nodejs
+        state: present
+
+    - name: Neovim | Install ripgrep
+      become: true
+      pacman:
+        name: ripgrep
+        state: present
+
+    # - name: Neovim | Install lf
+    #   become: true
+    #   aur:
+    #     name: lf-bin
+    #     state: present
+
+    # - name: Install
+    #   aur:
+    #     name: elm-language-server
+    #     user: "{{ user.name }}"
+
+    - name: Neovim | Install plugins
+      become: true
+      shell: nvim +PlugInstall +qall --headless
+      

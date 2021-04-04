@@ -1,0 +1,17 @@
+secrets: 
+    repo: "git@github.com:simonwjackson/secrets"
+    location: /home/{{ user.name }}/.secrets
+
+user:
+    uid: 1000
+    name: simonwjackson
+    group: simonwjackson
+    shell: /usr/bin/zsh
+    email: hello@simonwjackson.io
+    log:
+        dir: log
+        rotate: 8
+
+git:
+  name: "Simon W. Jackson"
+  email: "simon@simonwjackson.com"

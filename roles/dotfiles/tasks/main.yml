@@ -1,0 +1,10 @@
+- name: Read-write git checkout from github
+  git:
+    repo: git@github.com:simonwjackson/dotfiles.git
+    dest: /home/simonwjackson/.dotfiles
+    bare: yes
+
+- name: Sync repo
+  shell: |
+    git --git-dir=/home/simonwjackson/.dotfiles/ --work-tree=/home/simonwjackson pull
+

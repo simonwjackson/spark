@@ -1,0 +1,4 @@
+---
+- name: Enable fractional scaling in Gnome
+  shell: |
+    gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling', 'scale-monitor-framebuffer']"

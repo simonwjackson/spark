@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    - localhost_vars.yml
+  roles:
+    - { role: secrets, tags: ['secrets'] }
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: neovim, tags: ['neovim'] }
+  tasks: 
+    - name: Enable fractional scaling in Gnome
+      shell: |
+        gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling', 'scale-monitor-framebuffer']"
