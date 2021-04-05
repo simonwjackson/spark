@@ -1,0 +1,28 @@
+---
+- name: Install ZSH
+  pacman:
+    name:
+      - zsh
+      - zsh-completions
+    state: present
+  tags:
+    - shell
+
+- name: zshrc
+  tags:
+    - shell
+    - zsh
+    - zshrc
+    - rc
+    - config
+  block:
+    - name: zshrc | Spaceship
+      aur:
+        name: spaceship-prompt-git
+    - name: Create a symbolic link tmux
+      file:
+        src: /home/{{ user.name }}/.config/zsh/zshrc
+        dest: /home/{{ user.name }}/.zshrc
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"   
+        state: link

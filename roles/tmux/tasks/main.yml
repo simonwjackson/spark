@@ -1,0 +1,41 @@
+---
+- name: install
+  aur:
+    name: 
+      - "tmux-git"
+  tags:
+    - packages
+
+- name: Tmux Plugins
+  tags:
+    - tmux
+    - tpm
+  block:
+    - name: Create tpm directory
+      file:
+        path: /home/{{ user.name }}/.local/share/tmux/plugins
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Clone tmux plugin manager
+      git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: /home/{{ user.name }}/.local/share/tmux/plugins/tpm
+        accept_hostkey: yes
+        update: yes
+      become: yes
+      become_user: "{{ user.name }}"
+
+- name: Tmux config
+  tags:
+    - tmux
+    - config
+  block:
+    - name: Create a symbolic link tmux
+      file:
+        src: /home/{{ user.name }}/.config/tmux/tmux.conf
+        dest: /home/{{ user.name }}/.tmux.conf
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"   
+        state: link

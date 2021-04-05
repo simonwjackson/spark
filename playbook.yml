@@ -3,10 +3,11 @@
   vars_files:
     - localhost_vars.yml
   roles:
+    - kewlfft.aur
     - { role: secrets, tags: ['secrets'] }
     - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: shell, tags: ['shell'] }
     - { role: neovim, tags: ['neovim'] }
-  tasks: 
-    - name: Enable fractional scaling in Gnome
-      shell: |
-        gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling', 'scale-monitor-framebuffer']"
+    - { role: tmux, tags: ['tmux'] }
+    - { role: gnome, tags: ['gnome'] }
+    - { role: shell, tags: ['shell'] }

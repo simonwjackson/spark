@@ -1,0 +1,7 @@
+---
+- name: Install
+  aur:
+    name: 
+      - base-devel
+  tags:
+    - packages

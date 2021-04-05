@@ -28,16 +28,14 @@
         name: ripgrep
         state: present
 
-    # - name: Neovim | Install lf
-    #   become: true
-    #   aur:
-    #     name: lf-bin
-    #     state: present
+    - name: Neovim | Install lf
+      become: true
+      aur:
+        name: lf-bin
 
-    # - name: Install
-    #   aur:
-    #     name: elm-language-server
-    #     user: "{{ user.name }}"
+    - name: Install
+      aur:
+        name: elm-language-server
 
     - name: Neovim | Install plugins
       become: true
