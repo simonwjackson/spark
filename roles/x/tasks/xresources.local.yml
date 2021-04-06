@@ -1,0 +1,16 @@
+---
+- name: Check if "{{ item.name }}" already defined
+  lineinfile:
+    state: absent
+    dest: "{{ xresourceslocalrc }}"
+    regexp: "{{ item.regexp }}"
+  check_mode: true
+  changed_when: false # This just makes things look prettier in the logs
+  register: check
+
+- name: Xresources (local) | set "{{ item.name }}"
+  lineinfile:
+    state: present
+    dest: "{{ xresourceslocalrc }}"
+    line: "{{ item.line }}"
+  when: check.found == 0

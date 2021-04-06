@@ -1,0 +1,87 @@
+---
+- name: Install
+  aur:
+    name: bspwm-git
+
+- name: bspwm
+  tags:
+    - bspwm
+    - bspwmrc
+    - config
+  vars:
+    BSPWM_SOCKET: /tmp/bspwm-socket
+  block: 
+    - name: Touch the same file, but add/remove some permissions
+      file:
+        path: /home/{{ user.name }}/.profile 
+        state: touch
+
+    - name: set BSPWM_SOCKET
+      lineinfile:
+        dest: /home/{{ user.name }}/.profile
+        regexp: '^\s*export BSPWM_SOCKET='
+        line: 'export BSPWM_SOCKET="{{ BSPWM_SOCKET }}"'
+
+    # - name: Reload bspwm
+    #   command: bspc wm -r
+    #   environment:
+    #     BSPWM_SOCKET: "{{ BSPWM_SOCKET }}"
+
+- name: polybar
+  tags:
+    - polybar
+    - polybarrc
+    - config
+  block: 
+    - name: Polybar | Install
+      aur:
+        name: polybar-git
+    - name: Create polybar directory
+      file:
+        path: /home/{{ user.name }}/.config/polybar
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+- name: Sxhkd
+  tags:
+    - sxhkd
+  block:
+    - name: Sxhkd | Install
+      aur:
+        name: sxhkd-git
+
+    - name: Sxhkd | Config
+      tags:
+        - config
+        - sxhkdrc
+      block:
+        - name: Sxhkd | Config | Create dir
+          file:
+            path: /home/{{ user.name }}/.config/sxhkd
+            state: directory
+            owner: "{{ user.name }}"
+            group: "{{ user.group }}"
+
+    - name: Sxhkd | Service
+      become: true
+      tags:
+        - systemd
+      block:
+        - name: Sxhkd | Service | Create
+          copy: 
+            src: service/sxhkd.service
+            dest: /etc/systemd/user/sxhkd.service
+          notify:
+            - reload systemd config
+
+        - name: Sxhkd | Service | (Auto) Start
+          become_user: "{{ user.name }}"
+          become: yes
+          environment:
+            XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+          systemd:
+            name: sxhkd
+            state: reloaded 
+            enabled: yes
+            scope: user

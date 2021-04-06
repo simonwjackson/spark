@@ -11,3 +11,5 @@
     - { role: tmux, tags: ['tmux'] }
     - { role: gnome, tags: ['gnome'] }
     - { role: shell, tags: ['shell'] }
+    - { role: bspwm, tags: ['bspwm'] }
+    - { role: x, tags: ['x'] }
