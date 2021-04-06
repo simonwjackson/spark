@@ -1,0 +1,3 @@
+#!/bin/sh
+
+i3-sensible-terminal -e "tmux new-session -t logan \; source-file ~/.tmux.transparent.conf"

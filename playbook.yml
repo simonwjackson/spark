@@ -4,12 +4,16 @@
     - localhost_vars.yml
   roles:
     - kewlfft.aur
-    - { role: secrets, tags: ['secrets'] }
-    - { role: dotfiles, tags: ['dotfiles'] }
-    - { role: shell, tags: ['shell'] }
-    - { role: neovim, tags: ['neovim'] }
-    - { role: tmux, tags: ['tmux'] }
-    - { role: gnome, tags: ['gnome'] }
-    - { role: shell, tags: ['shell'] }
+    - { role: bitwarden, tags: ['bitwarden'] }
     - { role: bspwm, tags: ['bspwm'] }
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: gnome, tags: ['gnome'] }
+    - { role: kitty, tags: ['kitty'] }
+    - { role: neovim, tags: ['neovim'] }
+    - { role: qutebrowser, tags: ['qutebrowser'] }
+    - { role: secrets, tags: ['secrets'] }
+    - { role: shell, tags: ['shell'] }
+    - { role: shell, tags: ['shell'] }
+    - { role: tmux, tags: ['tmux'] }
+    - { role: vpn, tags: ['vpn'] }
     - { role: x, tags: ['x'] }

@@ -1,0 +1,10 @@
+  521  curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \\n    | sudo pacman-key --add -
+  522  sudo pacman-key --finger 56C464BAAC421453
+  523  sudo pacman-key --lsign-key 56C464BAAC421453
+  524  sudo -E nvim /etc/pacman.conf
+  525  sudo pacman -Syu\n
+  526  sudo pacman -S linux-surface linux-surface-headers iptsd\n
+  527  sudo grub-mkconfig -o /boot/grub/grub.cfg
+  528  yay -S libwacom-surface
+  529  sudo timedatectl set-local-rtc 1
+  530  sudo hwclock --systohc --localtime

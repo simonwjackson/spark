@@ -1,22 +1,3 @@
 ---
-- name: Xresources
-  vars:
-      xresourcesrc: /home/{{ user.name }}/.Xresources
-      xresourceslocalrc: /home/{{ user.name }}/.Xresources.local
-  tags:
-    - xresources
-    - xresourcesrc
-  block:
-    - name: Xresources (local)
-      file:
-        state: touch
-        path: "{{ xresourceslocalrc }}"
-
-    - include: xresources.local.yml
-      with_items:
-          - { name: "dpi", regexp: '^\s*Xft.dpi:\s*\d*$', line: "Xft.dpi: {{ xorg.dpi }}" }
-
-    - name: Xresources | reload
-      shell: |
-          xrdb -merge {{ xresourcesrc }}
-          xrdb -merge {{ xresourceslocalrc }}
+- include: intel.yml
+- include: xresources.yml

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+mosh \
+  --server /usr/local/bin/mosh-server \
+  --experimental-remote-ip remote \
+  10.10.15.18 -- \
+  /usr/local/bin/tmux \
+    new-session \
+    -A \
+    -s 0

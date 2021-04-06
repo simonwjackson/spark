@@ -1,4 +1,15 @@
 ---
+- name: Install scripts
+  become: true
+  tags:
+    - bin
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/*
+    
 - name: Install
   aur:
     name: bspwm-git

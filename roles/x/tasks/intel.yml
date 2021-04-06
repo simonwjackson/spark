@@ -1,0 +1,7 @@
+---
+- name: Prevent screen tearing
+  become: true
+  template:
+    src: 20-intel.conf.j2
+    dest: /etc/X11/xorg.conf.d/20-intel.conf
+  when: "'xf86-video-intel' in video_drivers"
