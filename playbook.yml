@@ -4,6 +4,8 @@
     - localhost_vars.yml
   roles:
     - kewlfft.aur
+    - jpic.base_devel
+    - { role: base, tags: ['base'] }
     - { role: bitwarden, tags: ['bitwarden'] }
     - { role: bspwm, tags: ['bspwm'] }
     - { role: dotfiles, tags: ['dotfiles'] }
@@ -13,7 +15,6 @@
     - { role: qutebrowser, tags: ['qutebrowser'] }
     - { role: surface, tags: ['surface'] }
     - { role: secrets, tags: ['secrets'] }
-    - { role: shell, tags: ['shell'] }
     - { role: shell, tags: ['shell'] }
     - { role: tmux, tags: ['tmux'] }
     - { role: vpn, tags: ['vpn'] }

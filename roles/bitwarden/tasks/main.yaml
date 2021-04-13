@@ -1,13 +1,21 @@
 ---
 - name: Install
   aur:
-    name: bitwarden-cli
+    name: bitwarden-cli-bin
 
 - name: Install dependencies
   pip:
     name:
       - tldextract
       - pyperclip
+
+- name: Touch ~/.profile
+  file:
+    path: /home/{{ user.name }}/.profile
+    state: touch
+    access_time: preserve
+    modification_time: preserve
+    mode: '0755'
 
 - name: set BW_SESSION
   lineinfile:

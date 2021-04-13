@@ -1,5 +1,6 @@
 ---
 - name: Install
+  become: true
   pacman:
     name: neovim
     state: present
@@ -29,7 +30,6 @@
         state: present
 
     - name: Neovim | Install lf
-      become: true
       aur:
         name: lf-bin
 

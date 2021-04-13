@@ -27,8 +27,18 @@
       - "linux-surface"
       - "linux-surface-headers"
       - iptsd 
-      - libwacom-surface
 
+#- name: remove default wacom drivers
+#  pacman:
+#    force: true
+#    state: removed
+#    name:
+#      - libwacom
+#
+#- name: Add surface wacom drivers
+#  aur:
+#    name:
+#      - libwacom-surface
 
 - name: Build grub config 
   become: true

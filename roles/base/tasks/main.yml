@@ -1,7 +1,34 @@
 ---
-- name: Install
-  aur:
+- name: Install baseutils
+  become: true
+  pacman:
     name: 
-      - base-devel
+      - autoconf
+      - automake
+      - binutils
+      - bison
+      - fakeroot
+      - file
+      - findutils
+      - flex
+      - gawk
+      - gcc
+      - gettext
+      - grep
+      - groff
+      - gzip
+      - libtool
+      - m4
+      - make
+      - pacman
+      - texinfo
+      - which
+  tags:
+    - packages
+
+- name: Install yay
+  become: true
+  pacman:
+    name: yay
   tags:
     - packages

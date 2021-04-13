@@ -1,3 +1,4 @@
+---
 - name: Read-write git checkout from github
   git:
     repo: git@github.com:simonwjackson/dotfiles.git
