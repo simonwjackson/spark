@@ -45,6 +45,14 @@
   shell: |
     grub-mkconfig -o /boot/grub/grub.cfg
 
+- name: Fix LTE modem
+  become: true
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+  tags:
+    - lte
+
 - name: sync clock
   become: true
   shell: |
