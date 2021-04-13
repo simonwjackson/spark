@@ -1,0 +1,42 @@
+---
+- name: Add pacman key
+  become: true
+  shell: |
+    curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc | pacman-key --add -
+    pacman-key --finger 56C464BAAC421453
+    pacman-key --lsign-key 56C464BAAC421453
+
+- name: Add repo
+  become: true
+  blockinfile:
+    path: /etc/pacman.conf
+    block: |
+      [linux-surface]
+      Server = https://pkg.surfacelinux.com/arch/
+
+- name: Pacman update
+  become: true
+  pacman:
+    update_cache: yes
+    upgrade: yes
+    
+- name: Add packages
+  become: true
+  pacman:
+    name: 
+      - "linux-surface"
+      - "linux-surface-headers"
+      - iptsd 
+      - libwacom-surface
+
+
+- name: Build grub config 
+  become: true
+  shell: |
+    grub-mkconfig -o /boot/grub/grub.cfg
+
+- name: sync clock
+  become: true
+  shell: |
+    timedatectl set-local-rtc 1
+    hwclock --systohc --localtime

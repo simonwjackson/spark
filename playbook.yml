@@ -11,6 +11,7 @@
     - { role: kitty, tags: ['kitty'] }
     - { role: neovim, tags: ['neovim'] }
     - { role: qutebrowser, tags: ['qutebrowser'] }
+    - { role: surface, tags: ['surface'] }
     - { role: secrets, tags: ['secrets'] }
     - { role: shell, tags: ['shell'] }
     - { role: shell, tags: ['shell'] }

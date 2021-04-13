@@ -2,8 +2,8 @@
 
 mosh \
   --server /usr/local/bin/mosh-server \
-  --experimental-remote-ip remote \
-  10.10.15.18 -- \
+  --experimental-remote-ip local \
+  10.10.15.28 -- \
   /usr/local/bin/tmux \
     new-session \
     -A \

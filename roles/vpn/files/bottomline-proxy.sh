@@ -8,5 +8,5 @@
     -C                      `# Compress` \
     -D 9999                 `# SOCKS5 Dynmic Port` \
     -L 3000:localhost:3000  `# Forward DBIQP` \
-    simonwjackson@10.10.15.18
+    simonwjackson@10.10.15.28
 #done
