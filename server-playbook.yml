@@ -5,10 +5,14 @@
   roles:
     - kewlfft.aur
     - { role: base, tags: ['base'] }
-    - { role: bitwarden, tags: ['bitwarden'] }
+    # - { role: bitwarden, tags: ['bitwarden'] }
     - { role: dotfiles, tags: ['dotfiles'] }
     - { role: neovim, tags: ['neovim'] }
-    - { role: secrets, tags: ['secrets'] }
+    # - { role: secrets, tags: ['secrets'] }
     - { role: shell, tags: ['shell'] }
     - { role: tmux, tags: ['tmux'] }
-    - { role: vpn, tags: ['vpn'] }
+    # - { role: vpn, tags: ['vpn'] }
+
+  vars_prompt:
+    - name: user_password
+      prompt: "Enter desired user password"

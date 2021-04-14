@@ -1,11 +1,15 @@
 ---
 - name: Read-write git checkout from github
+  become: yes
+  become_user: "{{ user.name }}"
   git:
     repo: git@github.com:simonwjackson/dotfiles.git
-    dest: /home/simonwjackson/.dotfiles
+    dest: "/home/{{ user.name }}/.dotfiles"
     bare: yes
 
 - name: Sync repo
+  become: yes
+  become_user: "{{ user.name }}"
   shell: |
-    git --git-dir=/home/simonwjackson/.dotfiles/ --work-tree=/home/simonwjackson pull
+    git --git-dir=/home/{{ user.name }}/.dotfiles/ --work-tree=/home/simonwjackson pull
 

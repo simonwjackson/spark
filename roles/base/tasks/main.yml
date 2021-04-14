@@ -21,6 +21,7 @@
       - m4
       - make
       - pacman
+      - pkgconf
       - texinfo
       - which
   tags:
@@ -63,9 +64,16 @@
   tags:
     - sudo
 
+- name: Install go
+  pacman: name=go state=present
+  tags:
+    - go
+
 - name: Install yay
-  become: true
-  pacman:
-    name: yay
+  shell: |
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    chown -R "{{ user.name }}":users /tmp/yay
+    cd /tmp/yay
+    runuser -u "{{ user.name }}" -- makepkg -si --noconfirm
   tags:
     - packages

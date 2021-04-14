@@ -17,8 +17,11 @@
     - config
   block:
     - name: zshrc | Spaceship
+      become: true
+      become_user: "{{ user.name }}"
       aur:
         name: spaceship-prompt-git
+
     - name: Create a symbolic link tmux
       file:
         src: /home/{{ user.name }}/.config/zsh/zshrc

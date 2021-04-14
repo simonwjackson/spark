@@ -12,32 +12,43 @@
     - neovimrc 
     - rc 
   block: 
-    - name: Neovim | Install python support
+    - name: Install python-pip
+      pacman:
+        name: python-pip
+        state: latest
+
+    - name: Install python support
       pip:
         name: neovim
         state: latest
 
-    - name: Neovim | Install nodejs
+    - name: Install nodejs
       become: true
       pacman:
         name: nodejs
         state: present
 
-    - name: Neovim | Install ripgrep
+    - name: Install ripgrep
       become: true
       pacman:
         name: ripgrep
         state: present
 
-    - name: Neovim | Install lf
+    - name: Install lf
+      become: true
+      become_user: "{{ user.name }}"
       aur:
         name: lf-bin
+        state: present
 
-    - name: Install
+    - name: Install elm
+      become: true
+      become_user: "{{ user.name }}"
       aur:
         name: elm-language-server
 
-    - name: Neovim | Install plugins
+    - name: Install plugins
       become: true
+      become_user: "{{ user.name }}"
       shell: nvim +PlugInstall +qall --headless
       
