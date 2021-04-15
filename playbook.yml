@@ -12,6 +12,7 @@
     - { role: kitty, tags: ['kitty'] }
     - { role: neovim, tags: ['neovim'] }
     - { role: qutebrowser, tags: ['qutebrowser'] }
+    - { role: taskwarrior, tags: ['taskwarrior'] }
     - { role: surface, tags: ['surface'] }
     - { role: secrets, tags: ['secrets'] }
     - { role: shell, tags: ['shell'] }

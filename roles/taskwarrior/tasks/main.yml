@@ -1,0 +1,55 @@
+---
+- name: Install
+  block:
+    - name: Install | taskwarrior
+      become: true
+      pacman: name=task state=present
+
+    - name: Install | timewarrior
+      become: true
+      pacman: name=timew state=present
+      notify:
+        - refresh holidays
+
+    - name: Install | taskopen
+      aur: name=taskopen
+      tags:
+        - aur
+
+    # Needed for taskwiki
+    - name: Install | tasklib
+      become: true
+      pip:
+        name: tasklib
+        state: latest
+      tags:
+        - tasklib
+
+- name: Install scripts
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item | basename | splitext | first }}"
+    mode: 0755 
+  with_fileglob:
+    - files/bin/* 
+
+- name: set TASKRC
+  lineinfile:
+    dest: "{{ profile.exports.XDG_DATA_HOME }}/.profile"
+    regexp: '^\s*export TASKRC='
+    line: 'export TASKRC="{{ profile.exports.XDG_CONFIG_HOME }}/taskwarrior/taskrc"' 
+
+- name: Config
+  block:
+    - name: Config | Directory
+      file:
+        path: /home/{{ user.name }}/.config/taskwarrior
+        state: directory 
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: Config | rc
+      template: 
+        src: taskrc.j2
+        dest: /home/{{ user.name }}/.config/taskwarrior/taskrc
